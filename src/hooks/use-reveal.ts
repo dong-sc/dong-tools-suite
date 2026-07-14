@@ -2,19 +2,18 @@ import { useEffect, useRef, useState } from "react";
 
 export function useReveal<T extends HTMLElement = HTMLDivElement>() {
   const ref = useRef<T | null>(null);
-  const [visible, setVisible] = useState(false);
+  const [visible, setVisible] = useState(() => {
+    if (typeof window === "undefined") return false;
+
+    return (
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches ||
+      typeof IntersectionObserver === "undefined"
+    );
+  });
 
   useEffect(() => {
     const element = ref.current;
-    if (!element) return;
-
-    const reducedMotion = window.matchMedia(
-      "(prefers-reduced-motion: reduce)",
-    ).matches;
-    if (reducedMotion || typeof IntersectionObserver === "undefined") {
-      setVisible(true);
-      return;
-    }
+    if (!element || visible) return;
 
     const observer = new IntersectionObserver(
       (entries) => {
@@ -28,7 +27,7 @@ export function useReveal<T extends HTMLElement = HTMLDivElement>() {
 
     observer.observe(element);
     return () => observer.disconnect();
-  }, []);
+  }, [visible]);
 
   return { ref, visible };
 }

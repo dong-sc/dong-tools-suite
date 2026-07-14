@@ -1,8 +1,5 @@
 @import "tailwindcss" source(none);
 @source "../src";
-@import "tw-animate-css";
-
-@custom-variant dark (&:is(.dark *));
 
 @theme inline {
   --radius-sm: calc(var(--radius) - 4px);
@@ -81,9 +78,24 @@
       sans-serif;
   }
 
+  #app-loading {
+    min-height: 100vh;
+    background:
+      linear-gradient(90deg, transparent, rgba(0, 0, 0, 0.025), transparent),
+      white;
+    background-size: 220% 100%;
+    animation: loading-shimmer 1.2s ease-in-out infinite;
+  }
+
   ::selection {
     background: oklch(0.205 0 0);
     color: white;
+  }
+}
+
+@keyframes loading-shimmer {
+  to {
+    background-position: -220% 0;
   }
 }
 
