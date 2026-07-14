@@ -77,14 +77,20 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "Lovable Generated Project" },
-      { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Lovable Generated Project" },
+      { title: "Dong Tools — 一些工作中慢慢做出來的小工具" },
+      {
+        name: "description",
+        content:
+          "來自攝影工作中實際需求而做出來的小工具集合。既然每天都在使用，也分享給同樣有需要的人。",
+      },
+      { name: "author", content: "Dong Lin Photo" },
+      { property: "og:title", content: "Dong Tools" },
+      {
+        property: "og:description",
+        content: "一些工作中慢慢做出來的小工具。",
+      },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:site", content: "@Lovable" },
     ],
     links: [
       {
