@@ -12,7 +12,7 @@ import { useEffect, type ReactNode } from "react";
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 
-const siteUrl = "https://tools.donglinphoto.com";
+const siteUrl = "https://dong-tools-suite.lovable.app";
 const description =
   "從照片排版，到報價、服務確認與請款。一些工作中慢慢做出來的小工具，分享給剛好需要的人。";
 
