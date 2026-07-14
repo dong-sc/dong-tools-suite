@@ -56,11 +56,3 @@ export const tools: Tool[] = [
     category: "business",
   },
 ];
-
-export const upcomingTools = [
-  "Field Note",
-  "Portfolio Builder",
-  "Tax Calculator",
-  "AI Workflow",
-  "Client CRM",
-] as const;

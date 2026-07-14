@@ -1,10 +1,10 @@
 import { Component, type ErrorInfo, type ReactNode } from "react";
 
+import { ClosingNote } from "@/components/site/ClosingNote";
 import { Footer } from "@/components/site/Footer";
 import { Hero } from "@/components/site/Hero";
 import { Nav } from "@/components/site/Nav";
 import { ToolsGrid } from "@/components/site/ToolsGrid";
-import { Upcoming } from "@/components/site/Upcoming";
 
 class AppErrorBoundary extends Component<
   { children: ReactNode },
@@ -58,7 +58,7 @@ export default function App() {
         <main id="main-content" tabIndex={-1}>
           <Hero />
           <ToolsGrid />
-          <Upcoming />
+          <ClosingNote />
         </main>
         <Footer />
       </div>
