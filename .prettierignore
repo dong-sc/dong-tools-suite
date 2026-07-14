@@ -1,8 +1,5 @@
-node_modules
 dist
-.output
-.vinxi
-pnpm-lock.yaml
-package-lock.json
-bun.lock
-routeTree.gen.ts
+node_modules
+public/favicon.ico
+public/og-image.png
+
