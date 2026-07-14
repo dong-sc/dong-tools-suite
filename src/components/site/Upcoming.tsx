@@ -1,46 +1,50 @@
+import { upcomingTools } from "@/data/tools";
 import { useReveal } from "@/hooks/use-reveal";
 
-const upcoming = [
-  "Field Note",
-  "Portfolio Builder",
-  "Tax Calculator",
-  "AI Workflow",
-  "Client CRM",
-];
-
-function UpcomingCard({ name, index }: { name: string; index: number }) {
-  const { ref, visible } = useReveal<HTMLDivElement>();
-  return (
-    <div
-      ref={ref}
-      style={{ transitionDelay: `${index * 50}ms` }}
-      className={`rounded-2xl border border-dashed border-neutral-200 bg-neutral-50/50 p-6 transition-all duration-500 ease-out ${
-        visible ? "translate-y-0 opacity-100" : "translate-y-4 opacity-0"
-      }`}
-    >
-      <div className="h-10 w-10 rounded-lg bg-neutral-100" />
-      <h3 className="mt-6 text-base font-medium tracking-tight text-neutral-400">{name}</h3>
-      <p className="mt-1.5 text-sm text-neutral-300">整理中</p>
-    </div>
-  );
-}
-
 export function Upcoming() {
+  const { ref, visible } = useReveal<HTMLDivElement>();
+
   return (
-    <section className="mx-auto max-w-6xl px-6 py-20 sm:py-28">
-      <div className="mb-10 max-w-2xl">
-        <h2 className="text-2xl font-semibold tracking-tight text-neutral-900 sm:text-3xl">
-          正在慢慢增加中
-        </h2>
-        <div className="mt-3 space-y-1 text-sm text-neutral-500">
-          <p>還有一些工具正在整理中，</p>
-          <p>等確定成熟之後，也會慢慢放上來。</p>
+    <section
+      aria-labelledby="upcoming-title"
+      className="mx-auto max-w-6xl px-5 py-20 sm:px-6 sm:py-28"
+    >
+      <div
+        ref={ref}
+        className={`grid gap-10 transition-[transform,opacity] duration-500 ease-out lg:grid-cols-[0.8fr_1.2fr] ${
+          visible ? "translate-y-0 opacity-100" : "translate-y-4 opacity-0"
+        }`}
+      >
+        <div>
+          <p className="text-xs font-medium uppercase tracking-[0.16em] text-neutral-400">
+            On the workbench
+          </p>
+          <h2
+            id="upcoming-title"
+            className="mt-3 text-2xl font-semibold tracking-[-0.03em] text-neutral-950 sm:text-3xl"
+          >
+            還在工作桌上的東西
+          </h2>
+          <p className="mt-4 max-w-md text-sm leading-6 text-neutral-500">
+            先自己用，反覆調整。等到真的穩定，再慢慢放上來。
+          </p>
         </div>
-      </div>
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        {upcoming.map((name, i) => (
-          <UpcomingCard key={name} name={name} index={i} />
-        ))}
+
+        <ul className="divide-y divide-neutral-200 border-y border-neutral-200">
+          {upcomingTools.map((name, index) => (
+            <li
+              key={name}
+              className="flex items-center justify-between gap-4 py-4"
+            >
+              <span className="text-sm font-medium text-neutral-700">
+                {name}
+              </span>
+              <span className="text-xs tabular-nums text-neutral-300">
+                {String(index + 1).padStart(2, "0")}
+              </span>
+            </li>
+          ))}
+        </ul>
       </div>
     </section>
   );
