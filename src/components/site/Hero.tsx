@@ -1,34 +1,29 @@
 import { ArrowDown } from "lucide-react";
 
 export function Hero() {
-  const scrollToTools = () => {
-    document.getElementById("tools")?.scrollIntoView({ behavior: "smooth", block: "start" });
-  };
-
   return (
-    <section className="mx-auto max-w-3xl px-6 pt-24 pb-24 sm:pt-32 sm:pb-32">
-      <div className="animate-fade-in">
-        <h1 className="text-4xl font-semibold tracking-tight text-neutral-900 sm:text-6xl">
-          Dong Tools
-        </h1>
-        <p className="mt-5 text-lg text-neutral-600 sm:text-xl">
-          一些工作中慢慢做出來的小工具。
+    <section className="mx-auto max-w-6xl px-5 pb-24 pt-20 sm:px-6 sm:pb-32 sm:pt-28">
+      <div className="max-w-3xl animate-fade-in">
+        <p className="text-xs font-medium uppercase tracking-[0.16em] text-neutral-400">
+          From Dong Lin Photo
         </p>
-        <div className="mt-8 space-y-4 text-[15px] leading-relaxed text-neutral-500">
-          <p>這些工具來自於我平時工作的實際需求。</p>
-          <p>有些只是想省下重複工作的時間，有些則是為了解決一直找不到合適工具的問題。</p>
-          <p>既然每天都在使用，也希望能分享給同樣有需要的人。</p>
-        </div>
+        <h1 className="mt-6 text-balance text-[2.75rem] font-semibold leading-[1.08] tracking-[-0.045em] text-neutral-950 sm:text-6xl lg:text-7xl">
+          工作裡慢慢做出來的工具。
+        </h1>
+        <p className="mt-7 max-w-2xl text-pretty text-lg leading-8 text-neutral-600 sm:text-xl sm:leading-9">
+          從照片排版，到報價、服務確認與請款。原本只是為了解決每天會遇到的事，現在整理在這裡，分享給剛好需要的人。
+        </p>
 
-        <div className="mt-10">
-          <button
-            onClick={scrollToTools}
-            className="group inline-flex items-center gap-2 rounded-full border border-neutral-200 bg-white px-5 py-2.5 text-sm font-medium text-neutral-800 transition-all hover:border-neutral-300 hover:bg-neutral-50"
-          >
-            瀏覽工具
-            <ArrowDown className="h-3.5 w-3.5 transition-transform group-hover:translate-y-0.5" />
-          </button>
-        </div>
+        <a
+          href="#tools"
+          className="group mt-10 inline-flex items-center gap-2 rounded-full border border-neutral-300 bg-white px-5 py-2.5 text-sm font-medium text-neutral-800 transition-[border-color,background-color,transform] hover:-translate-y-0.5 hover:border-neutral-400 hover:bg-neutral-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-900 focus-visible:ring-offset-4"
+        >
+          瀏覽 4 個工具
+          <ArrowDown
+            aria-hidden="true"
+            className="h-3.5 w-3.5 transition-transform group-hover:translate-y-0.5"
+          />
+        </a>
       </div>
     </section>
   );

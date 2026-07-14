@@ -1,0 +1,16 @@
+{
+  "name": "Dong Tools",
+  "short_name": "Dong Tools",
+  "description": "一些工作中慢慢做出來的小工具，分享給有需要的人。",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#ffffff",
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "256x256",
+      "type": "image/x-icon"
+    }
+  ]
+}
