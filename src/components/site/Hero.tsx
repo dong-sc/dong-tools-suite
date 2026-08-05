@@ -1,5 +1,7 @@
 import { ArrowDown } from "lucide-react";
 
+import { tools } from "../../data/tools";
+
 export function Hero() {
   return (
     <section className="mx-auto max-w-6xl px-5 pb-24 pt-20 sm:px-6 sm:pb-32 sm:pt-28">
@@ -18,7 +20,7 @@ export function Hero() {
           href="#tools"
           className="group mt-10 inline-flex items-center gap-2 rounded-full border border-neutral-300 bg-white px-5 py-2.5 text-sm font-medium text-neutral-800 transition-[border-color,background-color,transform] hover:-translate-y-0.5 hover:border-neutral-400 hover:bg-neutral-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-900 focus-visible:ring-offset-4"
         >
-          瀏覽 4 個工具
+          瀏覽 {tools.length} 個工具
           <ArrowDown
             aria-hidden="true"
             className="h-3.5 w-3.5 transition-transform group-hover:translate-y-0.5"

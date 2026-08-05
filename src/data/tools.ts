@@ -1,5 +1,6 @@
 import {
   ClipboardCheck,
+  FileSignature,
   FileText,
   LayoutTemplate,
   ReceiptText,
@@ -53,6 +54,15 @@ export const tools: Tool[] = [
     description: "建立清楚、得體的請款資訊。",
     href: "https://payment.donglinphoto.com",
     icon: ReceiptText,
+    category: "business",
+  },
+  {
+    id: "fill",
+    name: "Fill",
+    label: "PDF 填寫",
+    description: "在收到的 PDF 上填入資料與簽名，輸出成新檔案。",
+    href: "https://simple-pdf.donglinphoto.com",
+    icon: FileSignature,
     category: "business",
   },
 ];
