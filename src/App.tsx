@@ -4,6 +4,7 @@ import { ClosingNote } from "@/components/site/ClosingNote";
 import { Footer } from "@/components/site/Footer";
 import { Hero } from "@/components/site/Hero";
 import { Nav } from "@/components/site/Nav";
+import { PhotographyPromo } from "@/components/site/PhotographyPromo";
 import { ToolsGrid } from "@/components/site/ToolsGrid";
 
 class AppErrorBoundary extends Component<
@@ -58,6 +59,7 @@ export default function App() {
         <main id="main-content" tabIndex={-1}>
           <Hero />
           <ToolsGrid />
+          <PhotographyPromo />
           <ClosingNote />
         </main>
         <Footer />
