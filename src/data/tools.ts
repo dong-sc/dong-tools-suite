@@ -16,6 +16,8 @@ export type Tool = {
   icon: LucideIcon;
   category: "create" | "business";
   featured?: boolean;
+  /** 該工具在 Abacus 上的計數 namespace，頁尾的總使用次數由這些加總而來 */
+  counterNamespace?: string;
 };
 
 export const tools: Tool[] = [
@@ -27,6 +29,7 @@ export const tools: Tool[] = [
     href: "https://layout.donglinphoto.com",
     icon: LayoutTemplate,
     category: "create",
+    counterNamespace: "donglinphoto-layout-tool",
     featured: true,
   },
   {
@@ -37,6 +40,7 @@ export const tools: Tool[] = [
     href: "https://quote.donglinphoto.com",
     icon: FileText,
     category: "business",
+    counterNamespace: "donglinphoto-quote",
   },
   {
     id: "scope",
@@ -46,6 +50,7 @@ export const tools: Tool[] = [
     href: "https://scope.donglinphoto.com",
     icon: ClipboardCheck,
     category: "business",
+    counterNamespace: "donglinphoto-scope",
   },
   {
     id: "payment",
@@ -55,6 +60,7 @@ export const tools: Tool[] = [
     href: "https://payment.donglinphoto.com",
     icon: ReceiptText,
     category: "business",
+    counterNamespace: "donglinphoto-payment",
   },
   {
     id: "fill",
@@ -64,5 +70,6 @@ export const tools: Tool[] = [
     href: "https://simple-pdf.donglinphoto.com",
     icon: FileSignature,
     category: "business",
+    counterNamespace: "donglinphoto-pdf-fill",
   },
 ];
