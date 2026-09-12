@@ -63,6 +63,15 @@ export const tools: Tool[] = [
     counterNamespace: "donglinphoto-payment",
   },
   {
+    id: "travel-expense",
+    name: "Travel Expense",
+    label: "交通費報帳",
+    description: "整理活動與交通費用，列印憑證黏貼單與高鐵裁切頁。",
+    href: "https://tools.donglinphoto.com/travel-expense/",
+    icon: ReceiptText,
+    category: "business",
+  },
+  {
     id: "fill",
     name: "Fill",
     label: "PDF 填寫",
