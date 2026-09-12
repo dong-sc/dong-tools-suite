@@ -2,6 +2,7 @@ import {
   ClipboardCheck,
   FileSignature,
   FileText,
+  TrainFront,
   LayoutTemplate,
   ReceiptText,
   type LucideIcon,
@@ -61,6 +62,15 @@ export const tools: Tool[] = [
     icon: ReceiptText,
     category: "business",
     counterNamespace: "donglinphoto-payment",
+  },
+  {
+    id: "travel-expense",
+    name: "Travel Expense",
+    label: "交通費報帳",
+    description: "整理活動與交通費用，列印憑證黏貼單與高鐵裁切頁。",
+    href: "https://dong-lin-photo.lovable.app/tools/travel-expense",
+    icon: TrainFront,
+    category: "business",
   },
   {
     id: "fill",
