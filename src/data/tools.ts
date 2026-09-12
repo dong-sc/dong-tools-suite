@@ -64,9 +64,9 @@ export const tools: Tool[] = [
   },
   {
     id: "travel-expense",
-    name: "Travel",
-    label: "交通浮貼",
-    description: "整理活動與交通，列印 A4 浮貼底紙與電子憑證裁切頁。",
+    name: "Travel Expense",
+    label: "交通費報帳",
+    description: "整理活動與交通費用，列印憑證黏貼單與高鐵裁切頁。",
     href: "https://tools.donglinphoto.com/travel-expense/",
     icon: ReceiptText,
     category: "business",
