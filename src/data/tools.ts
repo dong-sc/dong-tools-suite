@@ -3,6 +3,7 @@ import {
   FileSignature,
   FileText,
   LayoutTemplate,
+  RadioTower,
   ReceiptText,
   type LucideIcon,
 } from "lucide-react";
@@ -71,6 +72,16 @@ export const tools: Tool[] = [
     counterNamespace: "donglinphoto-travel-expense",
     icon: ReceiptText,
     category: "business",
+  },
+  {
+    id: "thsr-upload",
+    name: "THSR Upload",
+    label: "高鐵上傳安全窗",
+    description: "估算高鐵途中照片上傳時間與風險區段。",
+    href: "https://tools.donglinphoto.com/thsr-upload/",
+    icon: RadioTower,
+    category: "business",
+    counterNamespace: "donglinphoto-thsr-upload",
   },
   {
     id: "fill",

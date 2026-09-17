@@ -1,0 +1,273 @@
+<!doctype html>
+<!-- Standalone HTML distribution; CSS and JavaScript stay in this single file. -->
+<!-- prettier-ignore -->
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="referrer" content="no-referrer">
+<meta name="description" content="估算搭乘台灣高鐵途中照片上傳所需時間，判斷北上安全線與南下較可靠窗口。免登入，計算在本機完成。">
+<title>高鐵照片上傳安全窗 · Dong Tools</title>
+<style>
+:root{color-scheme:light;--ink:#292f2c;--muted:#69716a;--line:#dfe2d9;--paper:#f5f5f0;--accent:#354e3b;--soft:#eef2e9;font-family:-apple-system,BlinkMacSystemFont,"PingFang TC","Microsoft JhengHei",sans-serif;color:var(--ink);background:var(--paper);font-size:15px;line-height:1.6}
+*{box-sizing:border-box}body{margin:0}h1,h2,h3,p{margin:0}h2{font-size:18px;font-weight:650}h3{font-size:14px;font-weight:650}
+button,input,select{font:inherit}button,a,input,select,summary{touch-action:manipulation}
+button{min-height:44px;padding:9px 14px;background:white;border:1px solid var(--line);border-radius:8px;color:var(--ink);cursor:pointer;font-size:14px;font-weight:550}
+button:hover{background:var(--soft);border-color:#a9b6a6}
+button[aria-pressed=true]{background:var(--accent);border-color:var(--accent);color:white}
+a{color:inherit}a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,summary:focus-visible{outline:3px solid #8da184;outline-offset:2px}
+input,select{width:100%;min-width:0;min-height:44px;border:1px solid #d5dbd1;background:white;border-radius:8px;color:var(--ink);padding:9px 10px;font-size:16px}
+label{display:grid;gap:5px;color:var(--muted);font-size:12px;min-width:0}
+[hidden]{display:none!important}
+.shell{max-width:760px;margin:auto;padding:0 16px 28px}
+.top{min-height:66px;display:flex;align-items:center;justify-content:space-between;gap:10px;border-bottom:1px solid var(--line);flex-wrap:wrap}
+.brand{font-size:13px;font-weight:700;letter-spacing:.13em;text-decoration:none}.brand span{font-size:11px;font-weight:400;letter-spacing:0;color:var(--muted);margin-left:10px}
+.local{font-size:12px;color:var(--muted)}
+.hero{padding:26px 0 18px}.eyebrow{font-size:11px;color:var(--muted);letter-spacing:.13em;margin-bottom:6px}
+h1{font-size:27px;line-height:1.35;letter-spacing:.02em}
+.hero p{color:var(--muted);font-size:13px;margin-top:10px}
+.panel{background:white;border:1px solid var(--line);border-radius:12px;padding:16px;margin-top:14px}
+.panel>h2+p{color:var(--muted);font-size:12px;margin-top:6px}
+.grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:12px}
+.grid1{display:grid;gap:10px;margin-top:12px}
+.seg{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:12px}
+.seg.three{grid-template-columns:repeat(3,minmax(0,1fr))}
+.seg button{font-size:13px;padding:9px 6px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.chips button{flex:1 1 auto;min-width:88px;font-size:13px}
+.result{margin-top:14px;border-radius:12px;border:1px solid var(--line);background:#f7f8f3;padding:16px}
+.rows{display:grid;gap:8px;margin-top:10px;font-size:14px}
+.rows div{display:flex;justify-content:space-between;gap:12px}
+.rows b{font-variant-numeric:tabular-nums;font-weight:600}
+.state{margin-top:12px;border-radius:10px;padding:13px 14px;font-size:14px;border:1px solid}
+.state b{display:block;font-size:16px;margin-bottom:4px}
+.ok{background:#eef4ec;border-color:#bed0b8;color:#2c4a32}
+.warn{background:#f7f3e4;border-color:#ddd4ae;color:#6f5c2a}
+.risk{background:#f8efec;border-color:#e0c4bb;color:#7d4034}
+.route{display:grid;gap:6px;margin-top:12px}
+.stop{display:grid;grid-template-columns:14px 62px minmax(0,1fr);gap:10px;align-items:center;font-size:13px}
+.dot{width:11px;height:11px;border-radius:50%;justify-self:center}
+.stop .nm{font-weight:600}.stop .tx{color:var(--muted);font-size:12px}
+.g .dot{background:#6f9a72}.y .dot{background:#c9a94b}.r .dot{background:#c07f6f}
+.legend{display:flex;gap:14px;flex-wrap:wrap;font-size:11px;color:var(--muted);margin-top:10px}
+.legend span{display:flex;align-items:center;gap:5px}.legend i{width:9px;height:9px;border-radius:50%;display:inline-block}
+table{width:100%;border-collapse:collapse;margin-top:12px;font-size:13px}
+th,td{text-align:left;padding:8px 6px;border-bottom:1px solid var(--line);font-variant-numeric:tabular-nums}
+th{font-size:11px;color:var(--muted);font-weight:600}
+.note{font-size:12px;color:var(--muted);margin-top:10px;line-height:1.75}
+.tag{display:inline-block;font-size:11px;color:var(--accent);background:var(--soft);border-radius:999px;padding:3px 9px;margin-bottom:8px}
+.footer{border-top:1px solid var(--line);margin-top:24px;padding-top:16px;color:var(--muted);font-size:12px;line-height:1.85}
+.footer ul{padding-left:18px;margin:8px 0}
+.footer a{overflow-wrap:anywhere}
+@media(max-width:420px){.shell{padding:0 12px 24px}h1{font-size:23px}.grid2{grid-template-columns:minmax(0,1fr)}.seg.three{grid-template-columns:minmax(0,1fr)}.stop{grid-template-columns:14px 56px minmax(0,1fr);gap:8px}}
+</style>
+</head>
+<body>
+<div class="shell">
+<header class="top"><a class="brand" href="https://tools.donglinphoto.com/">DONG TOOLS <span>回到工具箱 ↗</span></a><span class="local">免登入 · 本機計算</span></header>
+
+<section class="hero">
+<p class="eyebrow">THSR Upload Window</p>
+<h1>高鐵照片上傳安全窗</h1>
+<p>活動結束、上車開傳。估一下這批照片該在哪一段路傳完，哪一段不要當成 deadline。分鐘數是工作用保守估算。</p>
+</section>
+
+<section class="panel">
+<h2>行程</h2>
+<p>停靠型態只用來估算行車時間窗，不代表每一班車完全相同。</p>
+<div class="seg" role="group" aria-label="方向">
+<button type="button" id="dirN" aria-pressed="true">左營 → 台北</button>
+<button type="button" id="dirS" aria-pressed="false">台北 → 左營</button>
+</div>
+<div class="grid1">
+<label>停靠型態
+<select id="stopType">
+<option value="express">快速／直達型 1xx</option>
+<option value="normal">一般型 6xx</option>
+<option value="local">站站停 8xx</option>
+</select>
+</label>
+<label>發車時間<input type="time" id="depart" value="07:55"></label>
+</div>
+</section>
+
+<section class="panel">
+<h2>連線</h2>
+<div class="grid1">
+<label>主電信
+<select id="carrier">
+<option value="tstar">台灣大哥大（主線）</option>
+<option value="cht">中華電信（對照）</option>
+</select>
+</label>
+<label>估算上傳速度
+<select id="speed">
+<option value="5">5 Mbps</option>
+<option value="8">8 Mbps</option>
+<option value="10">10 Mbps</option>
+<option value="15">15 Mbps</option>
+<option value="20">20 Mbps</option>
+<option value="custom">自訂…</option>
+</select>
+</label>
+<label id="customWrap" hidden>自訂速度（Mbps）<input type="number" id="customSpeed" min="0.5" max="200" step="0.5" value="8" inputmode="decimal"></label>
+</div>
+<p class="note">預設 8（台灣大哥大）／10 Mbps（中華電信）是保守工作估值，不是官方或高鐵保證速率。</p>
+</section>
+
+<section class="panel">
+<h2>檔案量</h2>
+<div class="grid2">
+<label>張數<input type="number" id="count" min="1" max="20000" step="10" value="300" inputmode="numeric"></label>
+<label>單張 MB<input type="number" id="size" min="0.1" max="200" step="0.1" value="2.5" inputmode="decimal"></label>
+</div>
+<div class="grid1">
+<label>安全係數
+<select id="safety">
+<option value="1">1.0（理想值）</option>
+<option value="1.2">1.2</option>
+<option value="1.4">1.4（建議）</option>
+<option value="1.7">1.7</option>
+<option value="2">2.0（很不穩）</option>
+</select>
+</label>
+</div>
+<h3 style="margin-top:16px">快速情境</h3>
+<div class="chips" role="group" aria-label="快速情境">
+<button type="button" data-c="300">300 張 × 2.5MB</button>
+<button type="button" data-c="600">600 張 × 2.5MB</button>
+<button type="button" data-c="1000">1000 張 × 2.5MB</button>
+</div>
+</section>
+
+<section class="result" aria-live="polite">
+<span class="tag">工作用保守模型</span>
+<h2 id="rTitle">估算結果</h2>
+<div class="rows">
+<div><span>總資料量</span><b id="rTotal">—</b></div>
+<div><span>理論上傳時間</span><b id="rRaw">—</b></div>
+<div><span>加安全係數後</span><b id="rSafe">—</b></div>
+<div><span>預估完成時間</span><b id="rFinish">—</b></div>
+<div id="lineRow"><span id="lineLabel">安全線</span><b id="rLine">—</b></div>
+</div>
+<div class="state" id="rState"><b>—</b><span></span></div>
+<p class="note" id="rHint"></p>
+</section>
+
+<section class="panel">
+<h2>路段</h2>
+<div class="route" id="route"></div>
+<div class="legend"><span><i style="background:#6f9a72"></i>可放心傳</span><span><i style="background:#c9a94b"></i>看剩餘量</span><span><i style="background:#c07f6f"></i>不要押 deadline</span></div>
+</section>
+
+<section class="panel">
+<h2>台灣大哥大 vs 中華電信</h2>
+<p>你的主線是台灣大哥大。以下為公開全台數據，僅供參考，不代表高鐵沿線表現。</p>
+<table>
+<thead><tr><th>項目</th><th>中華電信</th><th>台灣大哥大</th></tr></thead>
+<tbody>
+<tr><td>Upload Speed Experience</td><td>16.1 Mbps</td><td>13.8 Mbps</td></tr>
+<tr><td>5G Upload Speed</td><td>37.9 Mbps</td><td>25.4 Mbps</td></tr>
+</tbody>
+</table>
+<p class="note">資料：Opensignal 2025/12 台灣行動網路體驗報告。本工具計算不採用全台平均，仍維持 8／10 Mbps 保守工作值。</p>
+</section>
+
+<footer class="footer">
+<p>資料來源與限制</p>
+<ul>
+<li><a href="https://www.thsrc.com.tw/ArticleContent/a3b630bb-1066-4352-a1ef-58c7b4e8ef7c" target="_blank" rel="noreferrer">台灣高鐵 2026/2/2 起時刻表 ↗</a></li>
+<li><a href="https://www.thsrc.com.tw/ArticleContent/2c4dc669-8a29-4f1e-94da-8f985983be38" target="_blank" rel="noreferrer">台灣高鐵 2026/03/25「高鐵2.0」全線通訊升級 ↗</a>：369 組舊設備將升級為超過 2,200 座 RRH，2026 年底優先改善南港至板橋地下段及部分隧道，2027 年底提升全線，因此本工具的風險帶未來可能需要更新。</li>
+<li><a href="https://www.ncc.gov.tw/chinese/files/ebook/164/ebook/NCC%20News10612.pdf" target="_blank" rel="noreferrer">NCC 高鐵隧道通訊改善資料（PDF）↗</a></li>
+<li><a href="https://insights.opensignal.com/reports/2025/12/taiwan/mobile-network-experience" target="_blank" rel="noreferrer">Opensignal 2025/12 台灣報告 ↗</a></li>
+</ul>
+<p>2026/09 工作版 · 路段分鐘數是工作用保守估算，不是列車即時定位或電信商 SLA。</p>
+<p class="local" id="visits" hidden></p>
+</footer>
+</div>
+
+<script>
+(function(){
+"use strict";
+var $=function(id){return document.getElementById(id)};
+var dir="north";
+var NORTH_LINE={express:34,normal:50,local:58};
+var SOUTH_WINDOW={express:61,normal:74,local:79};
+var NORTH_STOPS=[["左營","g","上車就開始傳"],["台南","g","持續上傳"],["嘉義","g","持續上傳"],["雲林","g","持續上傳"],["彰化","y","開始看剩餘量"],["台中","r","餘裕收窄"],["苗栗","r","最不要押 deadline"],["新竹","r","不穩定"],["桃園","r","不穩定"],["板橋","r","地下段"],["台北","r","收尾"]];
+var SOUTH_STOPS=[["台北","r","可以開始傳，但別當保證區"],["板橋","r","地下段"],["桃園","r","不穩定"],["新竹","r","不穩定"],["苗栗","r","最不要押 deadline"],["台中","y","逐漸穩定"],["彰化","g","大量上傳正式開始"],["雲林","g","可放心傳"],["嘉義","g","可放心傳"],["台南","g","可放心傳"],["左營","g","收尾"]];
+
+function num(el,fallback){var v=parseFloat(el.value);return(isFinite(v)&&v>0)?v:fallback}
+function fmtMin(m){var t=Math.round(m);if(t<60)return t+" 分";return Math.floor(t/60)+" 小時 "+(t%60)+" 分"}
+function pad(n){return(n<10?"0":"")+n}
+function addMin(hhmm,mins){var p=(hhmm||"").split(":");var h=parseInt(p[0],10),mi=parseInt(p[1],10);if(!isFinite(h)||!isFinite(mi))return null;var t=((h*60+mi+Math.round(mins))%1440+1440)%1440;return pad(Math.floor(t/60))+":"+pad(t%60)}
+
+function defaultSpeed(){return $("carrier").value==="cht"?"10":"8"}
+function speedValue(){var s=$("speed").value;return s==="custom"?num($("customSpeed"),8):parseFloat(s)}
+
+function drawRoute(){
+var list=dir==="north"?NORTH_STOPS:SOUTH_STOPS,html="";
+for(var i=0;i<list.length;i++){html+='<div class="stop '+list[i][1]+'"><span class="dot"></span><span class="nm">'+list[i][0]+'</span><span class="tx">'+list[i][2]+'</span></div>'}
+$("route").innerHTML=html;
+}
+
+function setState(cls,title,body){var el=$("rState");el.className="state "+cls;el.firstChild.textContent=title;el.lastChild.textContent=body}
+
+function calc(){
+var mbps=speedValue();
+var totalMB=num($("count"),300)*num($("size"),2.5);
+var raw=totalMB*8/mbps/60;
+var safe=raw*parseFloat($("safety").value||"1.4");
+var type=$("stopType").value;
+var dep=$("depart").value;
+$("rTotal").textContent=(totalMB>=1024?(totalMB/1024).toFixed(2)+" GB":Math.round(totalMB)+" MB");
+$("rRaw").textContent=fmtMin(raw);
+$("rSafe").textContent=fmtMin(safe);
+var finish=addMin(dep,safe);
+$("rFinish").textContent=finish?finish:"請先填發車時間";
+
+if(dir==="north"){
+var line=NORTH_LINE[type];
+$("lineLabel").textContent=type==="local"?"彰化警戒線（出發後）":"台中前安全線（出發後）";
+var lineTime=addMin(dep,line);
+$("rLine").textContent=fmtMin(line)+(lineTime?"（約 "+lineTime+"）":"");
+var slack=line-safe;
+if(slack>=10){setState("ok","安全","照安全係數估算完成後，還有約 "+fmtMin(slack)+" 餘裕。")}
+else if(slack>=0){setState("warn","餘裕不大","只剩約 "+fmtMin(slack)+" 餘裕，建議先傳必選照片。")}
+else{setState("risk","有風險","預估超出安全線約 "+fmtMin(-slack)+"。先傳必要照片，剩餘讓 Drive 續傳。")}
+$("rHint").textContent="北上：左營上車就傳，彰化開始看剩餘量，苗栗最不要押 deadline，台北收尾。";
+}else{
+var w=SOUTH_WINDOW[type];
+$("lineLabel").textContent="較可靠窗口開始（出發後）";
+var wTime=addMin(dep,w);
+$("rLine").textContent=fmtMin(w)+(wTime?"（約 "+wTime+"）":"");
+if(safe<=20){setState("ok","小批次","量不大，台北上車就直接傳完即可。")}
+else if(safe<=60){setState("warn","先傳、彰化後補滿","北部先傳必選，"+(wTime?wTime+" ":"")+"進入較可靠窗口後補滿剩餘。")}
+else{setState("risk","大批次","不要把北部當保證區。安排在彰化之後為主要上傳段，並開啟續傳。")}
+$("rHint").textContent="南下：台北上車可以立即開始傳，但桃竹苗不要當 deadline 保證區。";
+}
+}
+
+function bindDir(){
+$("dirN").addEventListener("click",function(){if(dir==="north")return;dir="north";$("dirN").setAttribute("aria-pressed","true");$("dirS").setAttribute("aria-pressed","false");$("depart").value="07:55";drawRoute();calc()});
+$("dirS").addEventListener("click",function(){if(dir==="south")return;dir="south";$("dirS").setAttribute("aria-pressed","true");$("dirN").setAttribute("aria-pressed","false");$("depart").value="07:31";drawRoute();calc()});
+}
+
+$("carrier").addEventListener("change",function(){$("speed").value=defaultSpeed();$("customWrap").hidden=true;calc()});
+$("speed").addEventListener("change",function(){$("customWrap").hidden=$("speed").value!=="custom";calc()});
+var inputs=["stopType","depart","customSpeed","count","size","safety"];
+for(var i=0;i<inputs.length;i++){$(inputs[i]).addEventListener("input",calc);$(inputs[i]).addEventListener("change",calc)}
+var chips=document.querySelectorAll(".chips button");
+for(var j=0;j<chips.length;j++){chips[j].addEventListener("click",function(e){$("count").value=e.currentTarget.getAttribute("data-c");$("size").value="2.5";calc()})}
+
+bindDir();
+$("speed").value=defaultSpeed();
+drawRoute();
+calc();
+
+try{
+fetch("https://abacus.jasoncameron.dev/hit/donglinphoto-thsr-upload/visits").then(function(r){return r.json()}).then(function(d){if(d&&typeof d.value==="number"){var el=$("visits");el.textContent="累計使用 "+d.value.toLocaleString("en-US")+" 次";el.hidden=false}}).catch(function(){});
+}catch(e){}
+})();
+</script>
+</body>
+</html>
