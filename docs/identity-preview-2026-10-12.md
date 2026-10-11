@@ -30,7 +30,7 @@ Homepage uses the same 16:10 artwork frame and live DOM typography, rather than 
 - `npm run lint`: passed.
 - `npm run build`: passed.
 - `npm run format`: only pre-existing `tsconfig.app.json` formatting fails; file matches main and was left unchanged to preserve scope. New/changed source files pass Prettier.
-- Installed Chrome desktop 1440px, tablet 768px, mobile 390px: all seven logos loaded, no page/card overflow, card ratio approximately 1.6, Chinese purpose text 14px, no runtime errors, visible keyboard focus.
+- Installed Chrome 1440/1024/901/768/601/390/320px: all seven logos loaded, no page/card overflow, card ratio approximately 1.6, Chinese purpose text 14px (13px below 360px), no runtime errors, visible keyboard focus.
 - Transparent color PNGs: all corners alpha 0; all visible bounds inside the 512px canvas, minimum margin 43px. Black-and-white/32px/white-on-dark checked visually in overview.
 - Preview rendering blocked remote network requests, so it did not exercise counters or increase live usage.
 - No tool functionality was modified or regression-tested. Browser engine coverage is Chrome only. No production replacement has been verified; no identity-recognition user study or trademark search was performed.
