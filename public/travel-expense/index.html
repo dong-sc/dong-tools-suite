@@ -7,6 +7,9 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="referrer" content="no-referrer">
 <meta name="description" content="整理活動與交通費用，列印 A4 憑證黏貼單與電子票證裁切頁。免登入，文字資料保存在自己的瀏覽器。">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCIgZmlsbD0ibm9uZSIgc3R5bGU9ImNvbG9yOiM1NTc1NzgiIHJvbGU9ImltZyIgYXJpYS1sYWJlbD0iRG9uZyBUb29scyBUcmF2ZWwgRXhwZW5zZSI+PGcgc3Ryb2tlPSJjdXJyZW50Q29sb3IiIHN0cm9rZS13aWR0aD0iNiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj48cGF0aCBkPSJNMTEgMTBoMzRhMiAyIDAgMCAxIDIgMnY5YTYgNiAwIDAgMCAwIDEydjlhMiAyIDAgMCAxLTIgMkgxMWEyIDIgMCAwIDEtMi0ydi05YTYgNiAwIDAgMCAwLTEydi05YTIgMiAwIDAgMSAyLTJaTTE5IDU0aDM2VjIwTTIwIDIyaDE1TTIwIDMyaDEwIi8+PC9nPjwvc3ZnPgo=">
+<link rel="icon" type="image/png" sizes="32x32" href="../identity/travel-expense/icon-32.png">
+<link rel="apple-touch-icon" href="../identity/travel-expense/icon-180.png">
 <title>交通費報帳 · Dong Tools</title>
 <style>
 :root{color-scheme:light;--ink:#292f2c;--muted:#69716a;--line:#dfe2d9;--paper:#f5f5f0;--accent:#354e3b;--soft:#eef2e9;font-family:-apple-system,BlinkMacSystemFont,"PingFang TC","Microsoft JhengHei",sans-serif;color:var(--ink);background:var(--paper);font-size:15px;line-height:1.6}
@@ -14,13 +17,14 @@
 @media(max-width:1020px){.workspace{grid-template-columns:180px minmax(0,1fr);gap:12px}.shell{padding:0 18px 22px}.editor,.cutter{padding:17px}.event{grid-template-columns:minmax(0,1fr)minmax(0,1fr)36px}.event-title{grid-column:1/-1}.leg-fields{grid-template-columns:repeat(2,minmax(0,1fr))}.cutter-fields{grid-template-columns:minmax(0,1fr)135px}.cutter-fields>button{grid-column:1/-1}}
 @media(max-width:690px){.shell{padding:0 13px 20px}.top{min-height:60px}.brand span{display:none}.hero{padding:26px 0 18px}h1{font-size:30px}h1 span{display:block;margin:7px 0 0;font-size:17px}.flow{gap:10px 16px;font-size:11px}.workspace{grid-template-columns:minmax(0,1fr)}.days{display:flex;position:static;gap:7px;overflow:auto;max-height:none;padding:10px}.days h2{display:none}.days button{flex:0 0 164px;width:164px;margin:0}.days .help{min-width:220px}.toolbar{padding:13px}.newdate{width:100%}.newdate label{min-width:0;flex:1}.monthbar>p{width:100%}.editor,.cutter{padding:15px}.leg{padding:10px}.cutter-fields{grid-template-columns:minmax(0,1fr)}.cutter-fields>button{grid-column:auto}.local{font-size:11px}.actions{gap:6px}}
 @media print{body>*{display:none!important}body::after{content:"請使用工具內的「列印憑證黏貼單」或「列印裁切頁」按鈕。";display:block;padding:15mm;color:black;background:white;font:12pt sans-serif}}
+.tool-identity{display:flex;align-items:center;gap:12px;margin-bottom:18px;color:#4a514c;font-size:16px;font-weight:650}.tool-identity img{width:48px;height:48px;flex-shrink:0}
 </style>
 </head>
 <body>
 <a href="#workspace" class="skip">跳到紀錄編輯區</a>
 <div class="shell">
 <header class="top"><a class="brand" href="https://tools.donglinphoto.com/">DONG TOOLS <span>回到工具箱 ↗</span></a><span class="local">免登入 · 本機保存</span></header>
-<section class="hero"><p class="eyebrow">交通憑證整理</p><h1>交通費報帳<span>少寫一點，整理快一點。</span></h1><p>填好同一天的活動與交通，印出底紙、浮貼票證，再交給收件單位。</p></section>
+<section class="hero"><div class="tool-identity"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCIgZmlsbD0ibm9uZSIgc3R5bGU9ImNvbG9yOiM1NTc1NzgiIHJvbGU9ImltZyIgYXJpYS1sYWJlbD0iRG9uZyBUb29scyBUcmF2ZWwgRXhwZW5zZSI+PGcgc3Ryb2tlPSJjdXJyZW50Q29sb3IiIHN0cm9rZS13aWR0aD0iNiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj48cGF0aCBkPSJNMTEgMTBoMzRhMiAyIDAgMCAxIDIgMnY5YTYgNiAwIDAgMCAwIDEydjlhMiAyIDAgMCAxLTIgMkgxMWEyIDIgMCAwIDEtMi0ydi05YTYgNiAwIDAgMCAwLTEydi05YTIgMiAwIDAgMSAyLTJaTTE5IDU0aDM2VjIwTTIwIDIyaDE1TTIwIDMyaDEwIi8+PC9nPjwvc3ZnPgo=" width="48" height="48" alt=""><span>Travel Expense</span></div><p class="eyebrow">交通憑證整理</p><h1>交通費報帳<span>少寫一點，整理快一點。</span></h1><p>填好同一天的活動與交通，印出底紙、浮貼票證，再交給收件單位。</p></section>
 <div class="flow"><span><b>01</b> 日期與活動</span><span><b>02</b> 起迄與金額</span><span><b>03</b> 列印、貼票、送件</span></div>
 <details class="privacy"><summary>資料放哪裡？需要什麼權限？</summary><p>不需帳號，不讀取行事曆或信箱。文字只存於目前瀏覽器，不會自動跨裝置同步；請定期匯出備份。清除網站資料、使用無痕視窗或共用電腦時，請特別留意。從本機檔案開啟時，各瀏覽器的保存方式可能不同。</p><p>PDF、票面影像與開啟密碼只留在目前頁面，不上傳，也不加入文字備份。高鐵 PDF 處理需連線載入 Mozilla PDF.js；輸入與底紙列印不需外部程式。頁面開啟時會向 Abacus 累計一次瀏覽，不傳送報帳內容、PDF 或密碼。此工具協助整理，正式核銷格式仍以收件單位規定為準。</p></details>
 <section class="toolbar panel" aria-label="建立及備份"><div class="newdate"><label>整理哪一天？<input id="date" type="date" min="1900-01-01" max="2199-12-31"></label><button id="open-day" class="primary">＋ 建立／開啟</button></div><div class="actions"><button id="export">↓ 匯出備份</button><button id="import">↑ 匯入備份</button><input id="import-file" type="file" accept="application/json,.json" hidden></div></section>
