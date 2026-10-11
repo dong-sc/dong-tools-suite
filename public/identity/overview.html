@@ -1,0 +1,243 @@
+<!doctype html>
+<html lang="zh-Hant">
+  <meta charset="utf-8" /><style>
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      margin: 0;
+      background: #f8f8f4;
+      color: #202724;
+      font-family: Arial, "PingFang TC", sans-serif;
+    }
+    main {
+      width: 1600px;
+      padding: 64px;
+    }
+    header {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      margin-bottom: 40px;
+      border-bottom: 1px solid #cdd3cb;
+      padding-bottom: 30px;
+    }
+    h1 {
+      font-size: 55px;
+      letter-spacing: -2px;
+      line-height: 1;
+      margin: 0;
+    }
+    header p {
+      font-size: 18px;
+      color: #666e67;
+      line-height: 1.6;
+      margin: 0;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 22px;
+    }
+    article {
+      background: white;
+      border: 1px solid #dfe3dc;
+      border-radius: 16px;
+      padding: 24px;
+    }
+    .cell-head {
+      display: flex;
+      gap: 16px;
+      font-size: 19px;
+      font-weight: 600;
+    }
+    .cell-head span:first-child {
+      color: #929c93;
+      font-size: 14px;
+      line-height: 22px;
+    }
+    .symbols {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin: 32px 0 26px;
+    }
+    .symbols > img {
+      width: 90px;
+      height: 90px;
+    }
+    .size-test {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      align-items: center;
+    }
+    .size-test span {
+      font-size: 10px;
+      color: #6b736d;
+    }
+    .reverse {
+      background: #202724;
+      border-radius: 8px;
+      padding: 12px;
+    }
+    .reverse img {
+      width: 40px;
+      height: 40px;
+    }
+    article p {
+      font-size: 16px;
+      margin: 0 0 24px;
+      color: #5e685f;
+    }
+    .thumbnail {
+      width: 100%;
+      border-radius: 7px;
+    }
+    .note {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      background: #edf0e9;
+    }
+    .note h2 {
+      font-size: 30px;
+      line-height: 1.4;
+      font-weight: 500;
+      margin: 0;
+    }
+    .note p {
+      font-size: 16px;
+      line-height: 1.9;
+    }
+    .note strong {
+      font-weight: 500;
+    }
+    footer {
+      font-size: 16px;
+      color: #69726a;
+      border-top: 1px solid #cdd3cb;
+      padding-top: 24px;
+      margin-top: 36px;
+    }
+  </style>
+  <main>
+    <header>
+      <h1>Dong Tools</h1>
+      <p>七個用途，七個符號。<br />同一網格、線寬與留白。</p>
+    </header>
+    <div class="grid">
+      <article>
+        <div class="cell-head"><span>01</span><span>Layout</span></div>
+        <div class="symbols" style="color: #345b80">
+          <img src="layout/logo.svg" />
+          <div class="size-test">
+            <img width="32" height="32" src="layout/logo-mono.svg" /><span
+              >32 px · mono</span
+            >
+          </div>
+          <div class="reverse"><img src="layout/logo-white.svg" /></div>
+        </div>
+        <p>照片排版與輸出</p>
+        <img class="thumbnail" src="layout/thumbnail.png" />
+      </article>
+      <article>
+        <div class="cell-head"><span>02</span><span>Quote</span></div>
+        <div class="symbols" style="color: #856536">
+          <img src="quote/logo.svg" />
+          <div class="size-test">
+            <img width="32" height="32" src="quote/logo-mono.svg" /><span
+              >32 px · mono</span
+            >
+          </div>
+          <div class="reverse"><img src="quote/logo-white.svg" /></div>
+        </div>
+        <p>整理服務項目與報價</p>
+        <img class="thumbnail" src="quote/thumbnail.png" />
+      </article>
+      <article>
+        <div class="cell-head"><span>03</span><span>Scope</span></div>
+        <div class="symbols" style="color: #54705a">
+          <img src="scope/logo.svg" />
+          <div class="size-test">
+            <img width="32" height="32" src="scope/logo-mono.svg" /><span
+              >32 px · mono</span
+            >
+          </div>
+          <div class="reverse"><img src="scope/logo-white.svg" /></div>
+        </div>
+        <p>確認拍攝與交付範圍</p>
+        <img class="thumbnail" src="scope/thumbnail.png" />
+      </article>
+      <article>
+        <div class="cell-head"><span>04</span><span>Payment</span></div>
+        <div class="symbols" style="color: #936152">
+          <img src="payment/logo.svg" />
+          <div class="size-test">
+            <img width="32" height="32" src="payment/logo-mono.svg" /><span
+              >32 px · mono</span
+            >
+          </div>
+          <div class="reverse"><img src="payment/logo-white.svg" /></div>
+        </div>
+        <p>建立請款資訊</p>
+        <img class="thumbnail" src="payment/thumbnail.png" />
+      </article>
+      <article>
+        <div class="cell-head"><span>05</span><span>Travel Expense</span></div>
+        <div class="symbols" style="color: #557578">
+          <img src="travel-expense/logo.svg" />
+          <div class="size-test">
+            <img
+              width="32"
+              height="32"
+              src="travel-expense/logo-mono.svg"
+            /><span>32 px · mono</span>
+          </div>
+          <div class="reverse"><img src="travel-expense/logo-white.svg" /></div>
+        </div>
+        <p>整理交通費與憑證</p>
+        <img class="thumbnail" src="travel-expense/thumbnail.png" />
+      </article>
+      <article>
+        <div class="cell-head"><span>06</span><span>THSR Upload</span></div>
+        <div class="symbols" style="color: #746288">
+          <img src="thsr-upload/logo.svg" />
+          <div class="size-test">
+            <img width="32" height="32" src="thsr-upload/logo-mono.svg" /><span
+              >32 px · mono</span
+            >
+          </div>
+          <div class="reverse"><img src="thsr-upload/logo-white.svg" /></div>
+        </div>
+        <p>估算途中上傳時間</p>
+        <img class="thumbnail" src="thsr-upload/thumbnail.png" />
+      </article>
+      <article>
+        <div class="cell-head"><span>07</span><span>Fill</span></div>
+        <div class="symbols" style="color: #626b91">
+          <img src="fill/logo.svg" />
+          <div class="size-test">
+            <img width="32" height="32" src="fill/logo-mono.svg" /><span
+              >32 px · mono</span
+            >
+          </div>
+          <div class="reverse"><img src="fill/logo-white.svg" /></div>
+        </div>
+        <p>填寫 PDF 與簽名</p>
+        <img class="thumbnail" src="fill/thumbnail.png" />
+      </article>
+      <article class="note">
+        <h2>工作各有<br />自己的形狀。</h2>
+        <p>
+          64 × 64 網格<br />6 單位線寬<br />圓角與端點統一<br />顏色輔助，形狀辨識
+        </p>
+        <p>首頁縮圖採 16:10。<br />所有符號可單色、反白、透明使用。</p>
+      </article>
+    </div>
+    <footer>
+      方向預覽 v1 ·
+      2026.10.12　／　未套用至正式網站　／　官網、作品與預約連結維持原樣
+    </footer>
+  </main>
+</html>

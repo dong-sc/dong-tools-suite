@@ -1,0 +1,71 @@
+{
+  "version": 1,
+  "grid": 64,
+  "stroke": 6,
+  "padding": 6,
+  "family": [
+    {
+      "id": "layout",
+      "name": "Layout",
+      "purpose": "照片排版與輸出",
+      "color": "#345B80",
+      "bg": "#E9EFF5",
+      "concept": "不等寬的三格版面，讓照片有位置與層次。",
+      "shape": "<rect x=\"9\" y=\"9\" width=\"46\" height=\"46\" rx=\"3\"/><path d=\"M29 10v44M30 31h24\"/>"
+    },
+    {
+      "id": "quote",
+      "name": "Quote",
+      "purpose": "整理服務項目與報價",
+      "color": "#856536",
+      "bg": "#F3EDE1",
+      "concept": "分項短列與收束的總額線，把估價整理成一個整體。",
+      "shape": "<path d=\"M11 12h17M11 25h23M11 38h17M45 12h8v26h-8M11 52h42\"/>"
+    },
+    {
+      "id": "scope",
+      "name": "Scope",
+      "purpose": "確認拍攝與交付範圍",
+      "color": "#54705A",
+      "bg": "#EAF0E9",
+      "concept": "四個界定範圍的角，包住一個確認勾。",
+      "shape": "<path d=\"M22 10H10v12M42 10h12v12M54 42v12H42M22 54H10V42M20 32l9 9 16-18\"/>"
+    },
+    {
+      "id": "payment",
+      "name": "Payment",
+      "purpose": "建立請款資訊",
+      "color": "#936152",
+      "bg": "#F4EAE5",
+      "concept": "請款文件的金額列與向外箭頭，表達送出請款通知。",
+      "shape": "<path d=\"M35 10H10v44h25M20 23h9M20 35h6M35 32h20M46 23l9 9-9 9\"/>"
+    },
+    {
+      "id": "travel-expense",
+      "name": "Travel Expense",
+      "purpose": "整理交通費與憑證",
+      "color": "#557578",
+      "bg": "#E8F0EF",
+      "concept": "凹口票證疊在底紙上，短列代表待整理的憑證資料。",
+      "shape": "<path d=\"M11 10h34a2 2 0 0 1 2 2v9a6 6 0 0 0 0 12v9a2 2 0 0 1-2 2H11a2 2 0 0 1-2-2v-9a6 6 0 0 0 0-12v-9a2 2 0 0 1 2-2ZM19 54h36V20M20 22h15M20 32h10\"/>"
+    },
+    {
+      "id": "thsr-upload",
+      "name": "THSR Upload",
+      "purpose": "估算途中上傳時間",
+      "color": "#746288",
+      "bg": "#F0EBF4",
+      "concept": "開口的時間環與上傳箭頭，表達有限時間中的上傳窗口。",
+      "shape": "<path d=\"M20 13a23 23 0 1 0 24 0M32 37V9M23 18l9-9 9 9\"/>"
+    },
+    {
+      "id": "fill",
+      "name": "Fill",
+      "purpose": "填寫 PDF 與簽名",
+      "color": "#626B91",
+      "bg": "#ECEEF5",
+      "concept": "留白文件與斜向落筆，明確指向原檔上的填寫動作。",
+      "shape": "<path d=\"M29 9H12v46h34V40M24 41l3-12 20-20 8 8-20 20-11 4ZM42 14l8 8\"/>"
+    }
+  ]
+}

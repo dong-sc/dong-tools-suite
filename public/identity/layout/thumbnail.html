@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="zh-Hant">
+  <meta charset="utf-8" /><style>
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      margin: 0;
+      font-family: Arial, "PingFang TC", "Microsoft JhengHei", sans-serif;
+      color: #202724;
+    }
+    img {
+      display: block;
+    }
+    .thumb {
+      width: 640px;
+      height: 400px;
+      padding: 34px 40px;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      background: var(--bg);
+      color: var(--ink);
+    }
+    .meta {
+      display: flex;
+      justify-content: space-between;
+      font-size: 14px;
+      letter-spacing: 1.5px;
+    }
+    .mark {
+      width: 116px;
+      height: 116px;
+      margin-top: 12px;
+    }
+    .name {
+      font-size: 48px;
+      line-height: 1.12;
+      letter-spacing: -1.4px;
+      font-weight: 600;
+      margin: 0;
+    }
+    .purpose {
+      font-size: 26px;
+      line-height: 1.5;
+      margin: 12px 0 0;
+      color: #4a514c;
+    }
+    .thumb::after {
+      content: "";
+      position: absolute;
+      right: 40px;
+      bottom: 40px;
+      width: 26px;
+      height: 26px;
+      border-top: 2px solid currentColor;
+      border-right: 2px solid currentColor;
+      transform: rotate(0deg);
+    }
+    .diagonal {
+      position: absolute;
+      right: 41px;
+      bottom: 52px;
+      width: 35px;
+      height: 2px;
+      background: currentColor;
+      transform: rotate(-45deg);
+      transform-origin: right center;
+    }
+  </style>
+  <div class="thumb" style="--bg: #e9eff5; --ink: #345b80">
+    <div>
+      <div class="meta"><span>DONG TOOLS</span><span>01</span></div>
+      <img class="mark" src="logo.svg" />
+    </div>
+    <div>
+      <h1 class="name">Layout</h1>
+      <p class="purpose">照片排版與輸出</p>
+    </div>
+    <span class="diagonal"></span>
+  </div>
+</html>
