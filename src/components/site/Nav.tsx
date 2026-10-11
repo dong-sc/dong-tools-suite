@@ -19,7 +19,6 @@ export function Nav() {
             aria-label="Dong Tools 首頁"
             className="group flex items-center gap-3 rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-900 focus-visible:ring-offset-4"
           >
-            <img src="/favicon.ico" alt="" className="h-7 w-7 rounded-[7px]" />
             <span className="text-sm font-semibold tracking-[-0.02em] text-neutral-950">
               Dong Tools
             </span>
