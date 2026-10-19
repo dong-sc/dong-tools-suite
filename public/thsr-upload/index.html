@@ -6,11 +6,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="referrer" content="no-referrer">
-<meta name="description" content="估算搭乘台灣高鐵途中照片上傳所需時間，判斷北上安全線與南下較可靠窗口。免登入，計算在本機完成。">
+<meta name="description" content="輸入照片張數、單張大小與估算上傳速度，計算台灣高鐵途中上傳所需時間，參考北上、南下行程的較可靠路段與風險窗口。">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCIgZmlsbD0ibm9uZSIgc3R5bGU9ImNvbG9yOiM3NDYyODgiIHJvbGU9ImltZyIgYXJpYS1sYWJlbD0iRG9uZyBUb29scyBUSFNSIFVwbG9hZCI+PGcgc3Ryb2tlPSJjdXJyZW50Q29sb3IiIHN0cm9rZS13aWR0aD0iNiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj48cGF0aCBkPSJNMjAgMTNhMjMgMjMgMCAxIDAgMjQgME0zMiAzN1Y5TTIzIDE4bDktOSA5IDkiLz48L2c+PC9zdmc+Cg==">
 <link rel="icon" type="image/png" sizes="32x32" href="../identity/thsr-upload/icon-32.png">
 <link rel="apple-touch-icon" href="../identity/thsr-upload/icon-180.png">
-<title>高鐵照片上傳安全窗 · Dong Tools</title>
+<title>高鐵照片上傳時間估算與路段安全窗｜Dong Tools</title>
 <style>
 :root{color-scheme:light;--ink:#292f2c;--muted:#69716a;--line:#dfe2d9;--paper:#f5f5f0;--accent:#354e3b;--soft:#eef2e9;font-family:-apple-system,BlinkMacSystemFont,"PingFang TC","Microsoft JhengHei",sans-serif;color:var(--ink);background:var(--paper);font-size:15px;line-height:1.6}
 *{box-sizing:border-box}body{margin:0}h1,h2,h3,p{margin:0}h2{font-size:18px;font-weight:650}h3{font-size:14px;font-weight:650}
@@ -65,6 +65,24 @@ th{font-size:11px;color:var(--muted);font-weight:600}
 @media(max-width:420px){.shell{padding:0 12px 24px}h1{font-size:23px}.grid2{grid-template-columns:minmax(0,1fr)}.seg.three{grid-template-columns:minmax(0,1fr)}.stop{grid-template-columns:14px 56px minmax(0,1fr);gap:8px}}
 .tool-identity{display:flex;align-items:center;gap:12px;margin-bottom:18px;color:#4a514c;font-size:16px;font-weight:650}.tool-identity img{width:48px;height:48px;flex-shrink:0}
 </style>
+<meta name="robots" content="index, follow">
+<meta property="og:title" content="高鐵照片上傳時間估算與路段安全窗｜Dong Tools">
+<meta property="og:description" content="輸入照片張數、單張大小與估算上傳速度，計算台灣高鐵途中上傳所需時間，參考北上、南下行程的較可靠路段與風險窗口。">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:site_name" content="Dong Tools">
+<meta property="og:url" content="https://tools.donglinphoto.com/thsr-upload/">
+<meta property="og:image" content="https://tools.donglinphoto.com/identity/thsr-upload/thumbnail.png">
+<meta property="og:image:alt" content="高鐵照片上傳時間估算">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="高鐵照片上傳時間估算與路段安全窗｜Dong Tools">
+<meta name="twitter:description" content="輸入照片張數、單張大小與估算上傳速度，計算台灣高鐵途中上傳所需時間，參考北上、南下行程的較可靠路段與風險窗口。">
+<meta name="twitter:image" content="https://tools.donglinphoto.com/identity/thsr-upload/thumbnail.png">
+<link rel="canonical" href="https://tools.donglinphoto.com/thsr-upload/">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "高鐵照片上傳時間估算", "url": "https://tools.donglinphoto.com/thsr-upload/", "description": "輸入照片張數、單張大小與估算上傳速度，計算台灣高鐵途中上傳所需時間，參考北上、南下行程的較可靠路段與風險窗口。", "applicationCategory": "BusinessApplication", "operatingSystem": "Web", "inLanguage": "zh-Hant-TW"}</script>
+<style>
+.tool-guide{flex:none;margin:0;padding:8px 18px;max-height:40vh;overflow:auto;font-size:13px;line-height:1.7;border-top:1px solid #8885}.tool-guide>summary{cursor:pointer}.tool-guide-content{max-width:960px;margin:0 auto;padding:24px 20px;font-size:14px;line-height:1.8;text-align:left}.tool-guide-content h2{font-size:18px;margin:18px 0 8px}.tool-guide-content p{margin:8px 0}.tool-guide-content ol{padding-left:24px}.tool-guide-content details{margin:8px 0}.tool-guide-content summary{cursor:pointer}.tool-guide-content a{color:inherit;text-decoration:underline}@media print{.tool-guide,.tool-guide-content{display:none!important}}
+</style>
 </head>
 <body>
 <div class="shell">
@@ -72,7 +90,7 @@ th{font-size:11px;color:var(--muted);font-weight:600}
 
 <section class="hero"><div class="tool-identity"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCIgZmlsbD0ibm9uZSIgc3R5bGU9ImNvbG9yOiM3NDYyODgiIHJvbGU9ImltZyIgYXJpYS1sYWJlbD0iRG9uZyBUb29scyBUSFNSIFVwbG9hZCI+PGcgc3Ryb2tlPSJjdXJyZW50Q29sb3IiIHN0cm9rZS13aWR0aD0iNiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj48cGF0aCBkPSJNMjAgMTNhMjMgMjMgMCAxIDAgMjQgME0zMiAzN1Y5TTIzIDE4bDktOSA5IDkiLz48L2c+PC9zdmc+Cg==" width="48" height="48" alt=""><span>THSR Upload</span></div>
 <p class="eyebrow">THSR Upload Window</p>
-<h1>高鐵照片上傳安全窗</h1>
+<h1>高鐵照片上傳時間估算</h1>
 <p>活動結束、上車開傳。估一下這批照片該在哪一段路傳完，哪一段不要當成 deadline。分鐘數是工作用保守估算。</p>
 </section>
 
@@ -177,6 +195,7 @@ th{font-size:11px;color:var(--muted);font-weight:600}
 <p class="note">資料：Opensignal 2025/12 台灣行動網路體驗報告。本工具計算不採用全台平均，仍維持 8／10 Mbps 保守工作值。</p>
 </section>
 
+<section class="tool-guide-content" aria-label="高鐵照片上傳時間估算使用說明"><h2>高鐵照片上傳時間估算可以做什麼？</h2><p>依檔案量、假設速度與行車時間，估算照片上傳需要多久，協助安排高鐵途中交件。</p><h2>三步使用方法</h2><ol><li>選擇北上或南下行程、停靠型態與發車時間。</li><li>設定連線速度、照片張數與單張檔案大小。</li><li>查看估算時間與路段提醒，為續傳與交件預留餘裕。</li></ol><h2>常見問題</h2><details><summary>會實際上傳照片或測速嗎？</summary><p>不會。這是依輸入條件計算的估算器，不會上傳照片，也不會測量即時網速。</p></details><details><summary>安全窗代表一定能傳完嗎？</summary><p>不代表。結果取決於假設速度與時間窗，實際訊號、壅塞、班次與上傳服務都可能影響完成時間。</p></details><p><a href="https://tools.donglinphoto.com/">查看 Dong Tools 的照片排版、報價與文件工具</a></p></section>
 <footer class="footer">
 <p>資料來源與限制</p>
 <ul>

@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from "react";
 export function useReveal<T extends HTMLElement = HTMLDivElement>() {
   const ref = useRef<T | null>(null);
   const [visible, setVisible] = useState(() => {
-    if (typeof window === "undefined") return false;
+    if (typeof window === "undefined") return true;
 
     return (
       window.matchMedia("(prefers-reduced-motion: reduce)").matches ||
