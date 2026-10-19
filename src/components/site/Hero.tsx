@@ -10,7 +10,7 @@ export function Hero() {
           From Dong Lin Photo
         </p>
         <h1 className="mt-6 text-balance text-[2.75rem] font-semibold leading-[1.08] tracking-[-0.045em] text-neutral-950 sm:text-6xl lg:text-7xl">
-          工作裡慢慢做出來的工具。
+          照片排版與接案文件工具。
         </h1>
         <p className="mt-7 max-w-2xl text-pretty text-lg leading-8 text-neutral-600 sm:text-xl sm:leading-9">
           從照片排版，到報價、服務確認、請款與 PDF

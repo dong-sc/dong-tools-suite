@@ -67,7 +67,7 @@ export function ToolsGrid() {
             </h2>
           </div>
           <p className="max-w-sm text-sm leading-6 text-neutral-500">
-            不用註冊。需要處理的內容，留在你的瀏覽器裡。
+            選擇要完成的工作，直接開啟對應工具。
           </p>
         </div>
         {tools.length === 0 ? (

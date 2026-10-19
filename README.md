@@ -24,3 +24,5 @@ npm run format
 ## 部署
 
 合併到 `main` 後，GitHub Actions 會建置並部署 `dist` 到 GitHub Pages。正式網域為 `tools.donglinphoto.com`。
+
+`npm run build` 會在 Vite 建置後，用相同的 React 元件預先輸出首頁 HTML。工具資料仍以 `src/data/tools.ts` 為唯一來源；即使尚未執行 JavaScript，也能讀取用途與工具連結，不需要伺服器執行環境。
