@@ -13,8 +13,7 @@ export function Footer() {
           <p className="mt-1">一些工作中慢慢做出來的小工具。</p>
           {totalUsage !== null && (
             <p className="mt-1 text-neutral-400">
-              到目前為止，已經幫忙擋掉 {totalUsage.toLocaleString()}{" "}
-              次行政雜事。
+              目前已記錄 {totalUsage.toLocaleString()} 次工具頁瀏覽。
             </p>
           )}
         </div>
