@@ -1,0 +1,470 @@
+<!doctype html>
+<!-- Standalone HTML distribution; CSS and JavaScript stay in this downloadable file. -->
+<!-- prettier-ignore -->
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="referrer" content="no-referrer">
+<meta name="description" content="填寫支付單位、受領事由與金額，自動換算中文大寫，試算所得稅扣繳與二代健保補充保費，檢查身分證字號與統一編號，列印 A4 個人領據後簽名或蓋章。">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCIgZmlsbD0ibm9uZSIgc3R5bGU9ImNvbG9yOiM2QjczNDAiIHJvbGU9ImltZyIgYXJpYS1sYWJlbD0iRG9uZyBUb29scyBSZWNlaXB0Ij48ZyBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSI2IiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiPjxwYXRoIGQ9Ik0xMyA5aDM4djQ1bC02LjMtNC02LjQgNC02LjMtNC02LjMgNC02LjQtNC02LjMgNFpNMjEgMTloMjJNMjEgMjhoOU00MSAzMWE2IDYgMCAxIDEgMCAxMmE2IDYgMCAxIDEgMC0xMloiLz48L2c+PC9zdmc+Cg==">
+<link rel="icon" type="image/png" sizes="32x32" href="../identity/receipt/icon-32.png">
+<link rel="apple-touch-icon" href="../identity/receipt/icon-180.png">
+<title>個人領據製作、扣繳與二代健保試算｜Dong Tools</title>
+<style>
+:root{color-scheme:light;--ink:#2b2d26;--muted:#6b6e60;--line:#e0e1d6;--paper:#f6f6f0;--accent:#4f5530;--accent-hover:#3c4123;--soft:#f0f1e4;--focus:#9aa070;--warn-bg:#f7f2e2;--warn-line:#e2d6ad;--warn-ink:#7a6436;--bad:#93483b;font-family:-apple-system,BlinkMacSystemFont,"PingFang TC","Microsoft JhengHei",sans-serif;color:var(--ink);background:var(--paper);font-size:15px;line-height:1.6}
+*{box-sizing:border-box}body{margin:0;background:var(--paper)}h1,h2,h3,p{margin:0}h2{font-size:19px;font-weight:650}h3{font-size:15px;font-weight:650}
+button,input,select,textarea{font:inherit}button,a,input,select,summary,textarea{touch-action:manipulation}
+button{min-height:42px;padding:8px 13px;background:white;border:1px solid var(--line);border-radius:7px;color:var(--ink);cursor:pointer;font-size:13px;font-weight:550}
+button:hover:not(:disabled){background:var(--soft);border-color:#b8bc9c}button:disabled{opacity:.45;cursor:not-allowed}
+button.primary{background:var(--accent);border-color:var(--accent);color:white}button.primary:hover:not(:disabled){background:var(--accent-hover)}
+button.quiet{background:transparent;border-color:transparent;color:var(--muted)}button.danger{color:var(--bad)}button.small{min-height:34px;padding:5px 9px;font-size:12px}button.icon{width:36px;min-height:36px;padding:4px}
+a{color:inherit}a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var(--focus);outline-offset:3px}
+input,select,textarea{width:100%;min-width:0;min-height:43px;border:1px solid #d7d9cb;background:white;border-radius:6px;color:var(--ink);padding:8px 9px;font-size:16px}
+textarea{min-height:64px;resize:vertical;line-height:1.5}
+input:focus,select:focus,textarea:focus{outline:2px solid var(--focus);outline-offset:1px}input::placeholder,textarea::placeholder{color:#8f9284;font-size:12px}
+input[type=checkbox],input[type=radio]{width:18px;height:18px;min-height:0;accent-color:var(--accent);flex-shrink:0}
+input[aria-invalid=true]{border-color:#c98f80;background:#fdf7f5}
+label{display:grid;gap:5px;color:var(--muted);font-size:12px;min-width:0}label b{color:var(--bad);font-weight:500}
+fieldset{padding:0;margin:0;border:0;min-width:0}fieldset:disabled input,fieldset:disabled select,fieldset:disabled textarea{background:var(--paper)}
+[hidden]{display:none!important}
+.shell{max-width:1180px;margin:auto;padding:0 26px 24px}
+.top{min-height:40px;display:flex;align-items:center;justify-content:flex-end;gap:12px;border-bottom:1px solid var(--line)}
+.local{font-size:12px;color:var(--muted)}
+.hero{padding:32px 0 22px}.eyebrow{font-size:11px;color:var(--muted);letter-spacing:.13em;margin-bottom:6px}
+h1{font-size:36px;line-height:1.35;letter-spacing:.03em}h1 span{font-weight:400;font-size:18px;color:var(--muted);letter-spacing:0;margin-left:18px}
+.hero>p:last-child{color:var(--muted);font-size:13px;margin-top:10px;max-width:720px}
+.tool-identity{display:flex;align-items:center;gap:12px;margin-bottom:18px;color:#4c4f40;font-size:16px;font-weight:650}.tool-identity img{width:48px;height:48px;flex-shrink:0}
+.flow{display:flex;gap:24px;font-size:12px;color:var(--muted);margin:0 0 20px;flex-wrap:wrap}.flow b{color:var(--accent);margin-right:7px;font-size:11px}
+.privacy{font-size:12px;color:var(--muted);border-left:2px solid #c3c6a8;padding-left:12px;margin-bottom:20px}summary{cursor:pointer;min-height:30px;padding:3px 0}.privacy p{max-width:940px;margin:7px 0}
+.panel{background:white;border:1px solid var(--line);border-radius:11px}
+.toolbar{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;padding:16px}
+.actions{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.workspace{display:grid;grid-template-columns:220px minmax(0,1fr);gap:18px;align-items:start;margin-top:18px}
+.list{padding:14px 10px;position:sticky;top:18px;max-height:82vh;overflow:auto}.list h2{font-size:12px;color:var(--muted);padding:0 8px 10px}
+.list button{display:block;width:100%;text-align:left;border-color:transparent;margin:5px 0;padding:11px 9px}
+.list button[aria-pressed=true]{background:var(--soft);border-color:#cacdb0}
+.list button>span{display:flex;justify-content:space-between;gap:8px;font-size:12px}
+.list button strong{display:block;font-size:13px;font-weight:500;margin:5px 0 2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.list small{font-size:11px;color:var(--muted)}.list .help{padding:0 8px}
+.main{display:grid;gap:18px;min-width:0}
+.editor{padding:22px}
+.head{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.minor{margin:26px 0 8px}
+.step{display:inline-grid;place-items:center;width:22px;height:22px;border:1px solid #c5c8a8;border-radius:50%;font-size:11px;margin-right:4px;color:var(--accent)}
+.help{font-size:12px;color:var(--muted);line-height:1.75;margin:8px 0 12px}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px 12px}.grid .wide{grid-column:1/-1}
+.grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px 12px}
+.field-note{font-size:11px;line-height:1.5;min-height:0}.field-note.bad{color:var(--bad)}.field-note.ok{color:#56703f}
+.check{display:flex;align-items:flex-start;gap:9px;color:var(--ink);font-size:13px;line-height:1.5}
+.check small{display:block;color:var(--muted);font-size:11px}
+.profile>summary{list-style:none;display:flex;justify-content:space-between;align-items:center;gap:12px;padding:16px 22px;min-height:56px}.profile>summary::-webkit-details-marker{display:none}
+.profile>summary h2{font-size:16px}.profile>summary span{font-size:12px;color:var(--muted)}
+.profile[open]>summary{border-bottom:1px solid var(--line)}.profile-body{padding:18px 22px 22px}
+.items{display:grid;gap:8px}
+.item{display:grid;grid-template-columns:minmax(0,1fr)128px 130px 36px;gap:8px;padding:10px;background:#f8f8f2;border-radius:8px;align-items:end}
+.radios{display:flex;gap:8px 18px;flex-wrap:wrap}.radios label{display:flex;align-items:center;gap:7px;color:var(--ink);font-size:13px;min-height:34px}
+.cat-hint{font-size:12px;color:var(--muted);margin:6px 0 0}
+.summary{margin-top:14px;border:1px solid var(--line);border-radius:9px;overflow:hidden}
+.summary dl{margin:0}.summary dl>div{display:grid;grid-template-columns:minmax(0,1fr)auto;gap:4px 12px;padding:10px 14px;border-top:1px solid var(--line);font-size:13px}.summary dl>div:first-child{border-top:0}
+.summary dt{color:var(--muted)}.summary dd{margin:0;text-align:right;font-variant-numeric:tabular-nums;font-weight:600}
+.summary .sub{grid-column:1/-1;font-size:11px;color:var(--muted);font-weight:400}
+.summary .net{background:var(--soft)}.summary .net dd{font-size:20px}
+.upper{font-size:12px;color:var(--accent);font-weight:600;grid-column:1/-1;letter-spacing:.04em}
+.sig{display:flex;gap:14px;align-items:center;flex-wrap:wrap}.sig-preview{width:150px;height:76px;border:1px dashed #c8cab4;border-radius:7px;display:grid;place-items:center;font-size:11px;color:var(--muted);background:#fbfbf7;overflow:hidden}.sig-preview img{max-width:100%;max-height:100%;object-fit:contain}
+.printarea{border-top:1px solid var(--line);margin-top:26px;padding-top:20px}
+.compliance{list-style:none;padding:0;margin:8px 0 14px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px 16px;font-size:13px}
+.compliance li{display:flex;gap:8px;align-items:baseline}.compliance li::before{content:"○";color:#a5a893;font-size:12px;width:14px;flex-shrink:0}.compliance li.done::before{content:"✓";color:#56703f;font-weight:700}
+.compliance small{color:var(--muted);font-size:11px}
+.note{padding:12px 14px;border-radius:7px;background:var(--warn-bg);border:1px solid var(--warn-line);font-size:13px;white-space:pre-line;margin:12px 0;overflow-wrap:anywhere}
+.issues{font-size:12px;margin:10px 0;padding:0 0 0 18px}.issues li{margin:3px 0}.issues .err{color:var(--bad)}.issues .warn{color:var(--warn-ink)}
+.empty{min-height:270px;padding:38px 20px;display:grid;align-content:center;gap:12px;text-align:center}.empty p{font-size:13px;color:var(--muted)}
+.footer{border-top:1px solid var(--line);margin-top:26px;padding-top:16px;color:var(--muted);font-size:12px}.footer>div{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-top:8px}.footer button{font-size:11px}
+.visitor-counter{margin-top:12px;font-variant-numeric:tabular-nums}
+.skip{position:absolute;left:-10000px}.skip:focus{left:16px;top:8px;padding:8px;background:white;z-index:3}
+@media(max-width:1020px){.workspace{grid-template-columns:190px minmax(0,1fr);gap:12px}.shell{padding:0 18px 22px}.editor{padding:17px}.item{grid-template-columns:minmax(0,1fr)minmax(0,1fr)36px}.item>label:first-child{grid-column:1/-1}.grid3{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:690px){.shell{padding:0 13px 20px}.hero{padding:26px 0 18px}h1{font-size:30px}h1 span{display:block;margin:7px 0 0;font-size:17px}.flow{gap:10px 16px;font-size:11px}.workspace{grid-template-columns:minmax(0,1fr)}.list{display:flex;position:static;gap:7px;overflow:auto;max-height:none;padding:10px}.list h2,.list .help{display:none}.list button{flex:0 0 172px;margin:0}.grid,.grid3,.compliance{grid-template-columns:minmax(0,1fr)}.profile>summary,.profile-body{padding-left:15px;padding-right:15px}.toolbar{padding:13px}}
+@media print{body>*{display:none!important}body::after{content:"請使用工具內的「列印領據」按鈕。";display:block;padding:15mm;color:black;background:white;font:12pt sans-serif}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important;scroll-behavior:auto!important}}
+</style>
+<meta name="robots" content="index, follow">
+<meta property="og:title" content="個人領據製作、扣繳與二代健保試算｜Dong Tools">
+<meta property="og:description" content="填寫支付單位、受領事由與金額，自動換算中文大寫，試算所得稅扣繳與二代健保補充保費，檢查身分證字號與統一編號，列印 A4 個人領據後簽名或蓋章。">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:site_name" content="Dong Tools">
+<meta property="og:url" content="https://tools.donglinphoto.com/receipt/">
+<meta property="og:image" content="https://tools.donglinphoto.com/identity/receipt/thumbnail.png">
+<meta property="og:image:alt" content="個人領據製作">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="個人領據製作、扣繳與二代健保試算｜Dong Tools">
+<meta name="twitter:description" content="填寫支付單位、受領事由與金額，自動換算中文大寫，試算所得稅扣繳與二代健保補充保費，檢查身分證字號與統一編號，列印 A4 個人領據後簽名或蓋章。">
+<meta name="twitter:image" content="https://tools.donglinphoto.com/identity/receipt/thumbnail.png">
+<link rel="canonical" href="https://tools.donglinphoto.com/receipt/">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "個人領據製作", "url": "https://tools.donglinphoto.com/receipt/", "description": "填寫支付單位、受領事由與金額，自動換算中文大寫，試算所得稅扣繳與二代健保補充保費，檢查身分證字號與統一編號，列印 A4 個人領據後簽名或蓋章。", "applicationCategory": "BusinessApplication", "operatingSystem": "Web", "inLanguage": "zh-Hant-TW"}</script>
+<style>
+.tool-guide-content{max-width:960px;margin:0 auto;padding:24px 20px;font-size:14px;line-height:1.8;text-align:left}.tool-guide-content h2{font-size:18px;margin:18px 0 8px}.tool-guide-content p{margin:8px 0}.tool-guide-content ol{padding-left:24px}.tool-guide-content details{margin:8px 0}.tool-guide-content summary{cursor:pointer}.tool-guide-content a{color:inherit;text-decoration:underline}@media print{.tool-guide-content{display:none!important}}
+
+.dong-tools-bar{border-bottom:1px solid #282828;background:#111;color:#fff}
+.dong-tools-bar-inner{display:flex;min-height:44px;max-width:1440px;margin:0 auto;padding:0 28px;align-items:center;justify-content:space-between;gap:20px}
+.dong-tools-brand,.dong-tools-hub-link{display:inline-flex;align-items:center;color:inherit;text-decoration:none}
+.dong-tools-brand{gap:9px;font-size:.86rem;font-weight:750;letter-spacing:-.01em}
+.dong-tools-brand img{width:32px;height:32px;flex-shrink:0}
+.dong-tools-family{color:#a3a3a3;font-weight:650}
+.dong-tools-hub-link{gap:5px;color:#a3a3a3;font-size:.78rem;font-weight:650}
+.dong-tools-brand:hover,.dong-tools-hub-link:hover{color:#fff;text-decoration:none}
+.dong-tools-brand:focus-visible,.dong-tools-hub-link:focus-visible{border-radius:3px;outline:2px solid #fff;outline-offset:4px}
+@media (max-width:760px){.dong-tools-bar-inner{min-height:42px;padding:0 18px;gap:12px}.dong-tools-brand img{width:26px;height:26px}}
+</style>
+</head>
+<body>
+<nav class="dong-tools-bar" aria-label="Dong Tools 品牌導覽"><div class="dong-tools-bar-inner"><a class="dong-tools-brand" aria-label="Receipt · Dong Tools（前往工具總站）" href="https://tools.donglinphoto.com/"><img src="/identity/receipt/logo-white.svg" alt="" width="32" height="32"><span>Receipt</span><span class="dong-tools-family">Dong Tools</span></a><a class="dong-tools-hub-link" href="https://tools.donglinphoto.com/">所有工具 <span aria-hidden="true">↗</span></a></div></nav>
+<a href="#workspace" class="skip">跳到領據編輯區</a>
+<div class="shell">
+<header class="top"><span class="local">免登入 · 本機保存</span></header>
+<section class="hero"><div class="tool-identity"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCIgZmlsbD0ibm9uZSIgc3R5bGU9ImNvbG9yOiM2QjczNDAiIHJvbGU9ImltZyIgYXJpYS1sYWJlbD0iRG9uZyBUb29scyBSZWNlaXB0Ij48ZyBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSI2IiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiPjxwYXRoIGQ9Ik0xMyA5aDM4djQ1bC02LjMtNC02LjQgNC02LjMtNC02LjMgNC02LjQtNC02LjMgNFpNMjEgMTloMjJNMjEgMjhoOU00MSAzMWE2IDYgMCAxIDEgMCAxMmE2IDYgMCAxIDEgMC0xMloiLz48L2c+PC9zdmc+Cg==" width="48" height="48" alt=""><span>Receipt</span></div><p class="eyebrow">個人領據</p><h1>個人領據製作<span>簽名之前，先把格式顧好。</span></h1><p>填好支付單位、事由與金額，自動換算中文大寫、試算扣繳與二代健保，印出 A4 領據後簽名或蓋章。</p></section>
+<div class="flow"><span><b>01</b> 受領人資料</span><span><b>02</b> 事由與金額</span><span><b>03</b> 檢查、列印、簽章</span></div>
+<details class="privacy"><summary>資料放哪裡？身分證字號會被保存嗎？</summary><p>不需帳號，資料不會上傳。領據文字只存在目前瀏覽器，不會跨裝置同步；請定期匯出備份。身分證字號與銀行帳號預設只留在目前頁面，重新整理後需再填；在受領人資料勾選「記住」後，才會一併存在這個瀏覽器。共用電腦請不要勾選。</p><p>簽名或印章影像只在目前頁面使用，不保存、不加入備份。頁面開啟時會向 Abacus 累計一次瀏覽，不傳送任何領據內容。扣繳與補充保費依 115 年度（2026）公告門檻試算，最終金額以付款單位（扣繳義務人）計算為準。</p></details>
+<section class="toolbar panel" aria-label="建立及備份"><button id="new-receipt" class="primary">＋ 新增領據</button><div class="actions"><button id="export">↓ 匯出備份</button><button id="import">↑ 匯入備份</button><input id="import-file" type="file" accept="application/json,.json" hidden></div></section>
+<div id="storage-note" class="note" role="alert" hidden></div><p id="message" class="note" role="status" hidden></p>
+<div class="workspace" id="workspace"><aside class="panel list" id="list" aria-label="領據清單"></aside><main class="main">
+<details class="panel profile" id="profile" open><summary><div><p class="eyebrow">每張領據共用</p><h2>受領人資料</h2></div><span id="profile-state"></span></summary><div class="profile-body"><fieldset id="profile-fields">
+<div class="grid">
+<label><span>姓名 <b>*</b></span><input data-profile="name" autocomplete="name" maxlength="60" placeholder="與身分證件相同"></label>
+<label><span>身分證字號／居留證號 <b>*</b></span><input data-profile="idNo" autocomplete="off" maxlength="20" spellcheck="false" placeholder="例：A123456789"><span class="field-note" id="id-note"></span></label>
+<label class="wide"><span>戶籍地址 <b>*</b></span><input data-profile="address" autocomplete="street-address" maxlength="160" placeholder="付款單位開立扣繳憑單時使用，請填戶籍地址"></label>
+<label>聯絡電話<input data-profile="phone" type="tel" autocomplete="tel" maxlength="30"></label>
+<label>電子郵件<input data-profile="email" type="email" autocomplete="email" maxlength="120"></label>
+</div>
+<h3 class="minor">匯款帳戶 <small class="local">選填，付款單位轉帳用</small></h3>
+<div class="grid">
+<label>銀行名稱（含代碼）<input data-profile="bankName" maxlength="60" placeholder="例：012 台北富邦銀行"></label>
+<label>分行<input data-profile="bankBranch" maxlength="60" placeholder="例：信義分行"></label>
+<label>帳號<input data-profile="account" inputmode="numeric" autocomplete="off" maxlength="24" spellcheck="false"></label>
+<label>戶名<input data-profile="accountName" maxlength="60" placeholder="空白時印出受領人姓名"><span class="field-note" id="account-note"></span></label>
+</div>
+<label class="check" style="margin-top:16px"><input type="checkbox" id="remember"><span>在這個瀏覽器記住身分證字號與帳號<small>未勾選時，這兩欄只留在目前頁面；共用電腦請保持不勾選。</small></span></label>
+</fieldset></div></details>
+<div id="editor"></div>
+</main></div>
+<section class="tool-guide-content" aria-label="個人領據製作使用說明"><h2>個人領據製作工具可以做什麼？</h2><p>接案、演講、兼職收到報酬時，付款單位常要求開立個人領據。這個工具把領據該有的欄位排好，金額自動換成中文大寫，並依所得類別試算代扣的所得稅與二代健保補充保費，最後印成 A4 給你簽名或蓋章。</p><h2>三步使用方法</h2><ol><li>填一次受領人資料：姓名、身分證字號、戶籍地址，需要轉帳時再填匯款帳戶。</li><li>新增領據，填支付單位、受領事由與金額，選擇所得類別；有交通費等實支費用可另列，不計入所得。</li><li>看完檢查清單，列印領據，在簽章欄親簽或蓋章後交給付款單位。</li></ol><h2>常見問題</h2><details><summary>領據要寫哪些內容才算合格？</summary><p>依《政府支出憑證處理要點》第五點，收據應由受領人簽名，並記明受領事由、實收數額、支付機關名稱、受領人姓名與身分證明文件字號（或統一編號），以及開立日期。這個工具會逐項檢查，金額另以中文大寫列出，降低塗改疑慮。民間公司通常也沿用相同格式；個別單位另有欄位要求時，以付款單位規定為準。</p></details><details><summary>扣繳與二代健保是怎麼算的？</summary><p>境內居住者：執行業務所得（9A）與稿費、講演鐘點費（9B）按 10% 扣繳，每次應扣稅額未超過 2,000 元免扣；兼職薪資（50）單次給付達 115 年度起扣標準 90,501 元才按 5% 扣繳。補充保費費率 2.11%，9A、9B 單次給付達 20,000 元起扣，兼職薪資達基本工資 29,500 元起扣。非居住者稅率不同，工具會另行標示。扣繳稅額元以下捨去，補充保費四捨五入。</p></details><details><summary>交通費要算進所得嗎？</summary><p>實報實銷、附有單據的交通費或代墊款通常不屬所得，可選「實支費用」另列，不列入扣繳與補充保費計算。是否接受實支，仍以付款單位規定為準。</p></details><details><summary>可以免扣補充保費嗎？</summary><p>例如在職業工會加保者領取 9A 執行業務收入、未具健保投保資格者等情形，可向付款單位提出免扣取聲明並附證明。選擇「免扣取」後，領據會照實列出 0 元。</p></details><details><summary>要不要貼印花？</summary><p>工具不計算印花稅。付款單位若要求貼用，請依其規定辦理。</p></details><details><summary>資料會上傳嗎？</summary><p>不會。所有內容只在瀏覽器中處理，身分證字號與帳號預設不寫入瀏覽器儲存空間。</p></details><p><a href="https://tools.donglinphoto.com/">查看 Dong Tools 的報價、請款與文件工具</a></p></section>
+<footer class="footer"><p>試算依 115 年度公告門檻，最終扣繳金額由付款單位計算。印出後請親自簽名或蓋章。</p><div><span id="save-status" role="status"></span><button id="clear" class="quiet danger">清除此工具的本機紀錄</button></div><p id="visitor-counter" class="visitor-counter" hidden></p></footer>
+</div>
+<noscript>請開啟 JavaScript，才能輸入資料與列印領據。</noscript>
+<script>
+/* Dong Tools / Receipt / standalone HTML v1.0. No app runtime or backend. */
+'use strict';
+const KEY='dong-tools:receipt:html:v1',FORMAT='dong-tools-receipt-html',LIMIT=2*1024*1024;
+/* 115 年度（2026）公告門檻。年度更新時只需修改這裡。 */
+const RULES={year:115,nhiRate:0.0211,nhiCap:10000000,basicWage:29500,salaryExempt:90501,taxExempt:2000,nhiFloor:20000};
+const CATS={
+ '9A':{name:'執行業務所得',code:'9A',hint:'攝影、設計、表演、翻譯等以技藝自力營生，未受僱於付款單位。'},
+ '9B':{name:'稿費、講演鐘點費',code:'9B',hint:'稿費、版稅、作曲、演講或授課鐘點費等。'},
+ '50':{name:'兼職薪資所得',code:'50',hint:'受僱性質的兼職或臨時工作，或付款單位認定為薪資者。'},
+ 'none':{name:'非所得（實支實付）',code:'',hint:'只有代墊款或實報實銷費用，沒有報酬。'}
+};
+const KIND={income:'報酬',expense:'實支費用'};
+const PROFILE_KEYS=['name','idNo','address','phone','email','bankName','bankBranch','account','accountName','rememberSensitive'];
+const RECEIPT_KEYS=['id','no','date','payer','payerTaxId','reason','category','residency','items','taxMode','taxManual','nhiMode','nhiManual','note','issued'];
+const $=id=>document.getElementById(id),esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const uid=()=>globalThis.crypto?.randomUUID?.()||`i${Date.now().toString(36)}${Math.random().toString(36).slice(2)}`;
+const today=()=>{const d=new Date();return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;};
+const fmt=n=>Number(n||0).toLocaleString('zh-TW'),money=n=>'NT$ '+fmt(n);
+const dateOK=v=>typeof v==='string'&&/^(19|20|21)\d{2}-\d{2}-\d{2}$/.test(v)&&!isNaN(new Date(v+'T12:00:00Z').getTime())&&new Date(v+'T12:00:00Z').toISOString().slice(0,10)===v;
+function roc(v){const [y,m,d]=v.split('-').map(Number);return {y:y-1911,m,d};}
+/* 金額中文大寫：新臺幣壹萬零伍拾元整 */
+function upper(n){
+ n=Math.floor(Number(n)||0);if(n<=0)return '零元整';
+ const D='零壹貳參肆伍陸柒捌玖',U=['','拾','佰','仟'],G=['','萬','億','兆'],str=String(n),groups=[];
+ for(let i=str.length;i>0;i-=4)groups.unshift(str.slice(Math.max(0,i-4),i));
+ let out='';
+ groups.forEach((g,gi)=>{
+  const p=g.padStart(4,'0'),unit=G[groups.length-1-gi];let part='',zero=false;
+  for(let k=0;k<4;k++){const d=Number(p[k]);if(!d){if(out||part)zero=true;continue;}if(zero){part+='零';zero=false;}part+=D[d]+U[3-k];}
+  if(part)out+=part+unit;
+ });
+ return out+'元整';
+}
+/* 身分證字號與居留證號檢查碼：ok／bad／other（非台灣證號格式） */
+function idCheck(raw){
+ const v=String(raw||'').trim().toUpperCase(),L='ABCDEFGHJKLMNPQRSTUVXYWZIO';
+ let m=v.match(/^([A-Z])([1289])(\d{8})$/),second;
+ if(m)second=Number(m[2]);else{m=v.match(/^([A-Z])([A-D])(\d{8})$/);if(!m)return 'other';second=(L.indexOf(m[2])+10)%10;}
+ const n=L.indexOf(m[1])+10,w=[8,7,6,5,4,3,2,1,1];
+ const sum=Math.floor(n/10)+(n%10)*9+[second,...m[3]].map(Number).reduce((s,d,i)=>s+d*w[i],0);
+ return sum%10===0?'ok':'bad';
+}
+/* 統一編號檢查碼（含 2023 年起的 5 倍數規則） */
+function taxIdCheck(v){
+ if(!/^\d{8}$/.test(v))return false;const w=[1,2,1,2,1,2,4,1];let s=0;
+ for(let i=0;i<8;i++){const p=Number(v[i])*w[i];s+=Math.floor(p/10)+p%10;}
+ return s%5===0||(v[6]==='7'&&(s+1)%5===0);
+}
+function calc(r){
+ const amt=i=>Number(i.amount||0),none=r.category==='none';
+ const income=none?0:r.items.filter(i=>i.kind==='income').reduce((s,i)=>s+amt(i),0);
+ const gross=r.items.reduce((s,i)=>s+amt(i),0),expense=gross-income,res=r.residency==='resident';
+ let tax=0,taxNote='',taxRate='',nhi=0,nhiNote='';
+ if(none)taxNote='非所得，不扣繳。';
+ else if(!income)taxNote='沒有報酬項目，不扣繳。';
+ else if(r.category==='50'){
+  if(res){if(income>=RULES.salaryExempt){tax=Math.floor(income*0.05);taxRate='5%';taxNote='兼職薪資按給付額 5% 扣繳。';}else taxNote=`未達 ${RULES.year} 年度起扣標準 ${fmt(RULES.salaryExempt)} 元，免扣繳。`;}
+  else{const low=income<=RULES.basicWage*1.5;tax=Math.floor(income*(low?0.06:0.18));taxRate=low?'6%':'18%';taxNote=low?'非居住者，給付額在基本工資 1.5 倍以下，按 6% 扣繳。':'非居住者薪資按 18% 扣繳。';}
+ }else{
+  if(res){const t=Math.floor(income*0.1);if(t>RULES.taxExempt){tax=t;taxRate='10%';taxNote='按給付額 10% 扣繳。';}else taxNote=`每次應扣稅額未超過 ${fmt(RULES.taxExempt)} 元，免扣繳。`;}
+  else{tax=Math.floor(income*0.2);taxRate='20%';taxNote='非居住者按給付額 20% 扣繳。';}
+ }
+ if(r.taxMode==='manual'){tax=Number(r.taxManual||0);taxRate='';taxNote='依付款單位告知金額填寫。';}
+ if(r.nhiMode==='exempt')nhiNote='已提出免扣取聲明，請附證明文件。';
+ else if(r.nhiMode==='manual'){nhi=Number(r.nhiManual||0);nhiNote='依付款單位告知金額填寫。';}
+ else if(none||!income)nhiNote='沒有報酬項目，不扣取。';
+ else if(!res)nhiNote='非居住者通常不具健保投保資格，依付款單位認定。';
+ else{const floor=r.category==='50'?RULES.basicWage:RULES.nhiFloor;if(income>=floor){nhi=Math.round(Math.min(income,RULES.nhiCap)*RULES.nhiRate);nhiNote=`單次給付達 ${fmt(floor)} 元，按 2.11% 扣取。`;}else nhiNote=`單次給付未達 ${fmt(floor)} 元，免扣取。`;}
+ return {income,expense,gross,tax,taxRate,taxNote,nhi,nhiNote,net:gross-tax-nhi};
+}
+function issues(r,p){
+ const err=[],warn=[],c=calc(r),needsTax=r.category!=='none';
+ if(!p.name.trim())err.push('受領人姓名未填。');
+ if(!p.idNo.trim())(needsTax?err:warn).push('身分證字號或居留證號未填。');
+ else{const id=idCheck(p.idNo);if(id==='bad')warn.push('身分證字號檢查碼不符，請再核對。');if(id==='other')warn.push('證號不是身分證或居留證格式；若是護照號碼，請確認付款單位可接受。');}
+ if(!p.address.trim())(needsTax?err:warn).push('戶籍地址未填，付款單位開立扣繳憑單時需要。');
+ if(!r.payer.trim())err.push('支付單位名稱未填。');
+ if(r.payerTaxId&&!taxIdCheck(r.payerTaxId))warn.push('支付單位統一編號檢查碼不符。');
+ if(!r.reason.trim())err.push('受領事由未填。');
+ if(!dateOK(r.date))err.push('開立日期無效。');else if(r.date>today())warn.push('開立日期晚於今天，請確認是否為預開領據。');
+ if(!r.items.length)err.push('請至少加入一筆金額。');
+ r.items.forEach((i,n)=>{if(!i.desc.trim())err.push(`金額 ${n+1} 缺項目說明。`);if(!/^\d{1,9}$/.test(i.amount)||Number(i.amount)<=0)err.push(`金額 ${n+1} 需大於零。`);});
+ if(r.category!=='none'&&!r.items.some(i=>i.kind==='income'))warn.push('選了所得類別，但沒有「報酬」項目。');
+ if(r.taxMode==='manual'&&!/^\d{1,9}$/.test(r.taxManual))err.push('請填寫手動扣繳稅額，沒有請填 0。');
+ if(r.nhiMode==='manual'&&!/^\d{1,9}$/.test(r.nhiManual))err.push('請填寫手動補充保費，沒有請填 0。');
+ if(c.net<0)err.push('扣除後實領為負數，請檢查手動金額。');
+ if(p.accountName.trim()&&p.name.trim()&&p.accountName.trim()!==p.name.trim())warn.push('匯款戶名與受領人不同，多數單位需另附委託書。');
+ if(p.account.trim()&&!p.bankName.trim())warn.push('填了帳號但缺銀行名稱。');
+ return {err,warn};
+}
+function compliance(r,p,hasSig){
+ return [
+  ['受領事由',!!r.reason.trim()],
+  ['實收數額（含中文大寫）',r.items.length>0&&calc(r).gross>0],
+  ['支付單位名稱',!!r.payer.trim()],
+  ['受領人姓名與證號',!!p.name.trim()&&!!p.idNo.trim()],
+  ['開立日期',dateOK(r.date)],
+  ['受領人簽名或蓋章',hasSig,hasSig?'已附影像':'列印後親簽']
+ ];
+}
+/* 列印用領據 HTML（純函式，不讀取畫面） */
+function receiptHTML(r,p,sig){
+ const c=calc(r),cat=CATS[r.category],d=roc(r.date),blank='<span class="blank"></span>';
+ const val=v=>v&&String(v).trim()?esc(v):blank;
+ const rows=r.items.map(i=>`<tr><td>${esc(i.desc)}</td><td>${KIND[i.kind]}</td><td class="num">${fmt(i.amount)}</td></tr>`).join('');
+ const catLine=r.category==='none'?cat.name:`${cat.name}（${cat.code}）· ${r.residency==='resident'?'境內居住者':'非居住者'}`;
+ return `<article class="sheet">
+<header class="sheet-head"><h1>領　據</h1>${r.no?`<p>編號　${esc(r.no)}</p>`:''}</header>
+<p class="lead">茲收到　<b>${esc(r.payer)}</b>　給付「${esc(r.reason)}」款項，金額如下，確實無誤。</p>
+<div class="amount"><span>新臺幣</span><strong>${upper(c.gross)}</strong><em>NT$ ${fmt(c.gross)}</em></div>
+<table class="items"><thead><tr><th>項目</th><th>性質</th><th class="num">金額（元）</th></tr></thead><tbody>${rows}</tbody>
+<tfoot><tr><th colspan="2">應領合計</th><td class="num">${fmt(c.gross)}</td></tr>
+<tr><th colspan="2">代扣所得稅${c.taxRate?`（${c.taxRate}）`:''}</th><td class="num">${c.tax?'−'+fmt(c.tax):'0'}</td></tr>
+<tr><th colspan="2">代扣二代健保補充保費${c.nhi&&r.nhiMode==='auto'?'（2.11%）':''}</th><td class="num">${c.nhi?'−'+fmt(c.nhi):'0'}</td></tr>
+<tr class="net"><th colspan="2">實領金額　<span>新臺幣${upper(c.net)}</span></th><td class="num">${fmt(c.net)}</td></tr></tfoot></table>
+<p class="meta">所得類別：${catLine}${c.expense&&c.income?`　·　其中實支費用 ${fmt(c.expense)} 元不計入所得`:''}</p>
+${r.note.trim()?`<p class="meta">備註：${esc(r.note)}</p>`:''}
+<p class="to">此致<br><b>${esc(r.payer)}</b>${r.payerTaxId?`　統一編號 ${esc(r.payerTaxId)}`:''}</p>
+<section class="payee"><dl>
+<div><dt>受領人</dt><dd>${val(p.name)}</dd></div>
+<div><dt>身分證／居留證號</dt><dd>${val(p.idNo.toUpperCase())}</dd></div>
+<div class="wide"><dt>戶籍地址</dt><dd>${val(p.address)}</dd></div>
+<div><dt>聯絡電話</dt><dd>${val(p.phone)}</dd></div>
+<div><dt>電子郵件</dt><dd>${val(p.email)}</dd></div>
+<div class="wide"><dt>匯款帳戶</dt><dd>${p.account.trim()?`${esc(p.bankName)} ${esc(p.bankBranch)}　帳號 ${esc(p.account)}　戶名 ${esc(p.accountName.trim()||p.name)}`:blank}</dd></div>
+</dl><div class="sign"><span>受領人簽名或蓋章</span>${sig?`<img src="${esc(sig)}" alt="">`:''}</div></section>
+<footer class="date">中華民國　${d.y}　年　${d.m}　月　${d.d}　日</footer>
+</article>`;
+}
+function validate(data){
+ const exact=(o,keys)=>o&&typeof o==='object'&&!Array.isArray(o)&&Object.keys(o).length===keys.length&&keys.every(k=>Object.hasOwn(o,k));
+ const str=(v,max)=>typeof v==='string'&&v.length<=max,digits=v=>str(v,9)&&/^\d{0,9}$/.test(v);
+ if(!exact(data,['format','version','revision','profile','receipts'])||data.format!==FORMAT||data.version!==1||!str(data.revision,100)||!data.revision||!Array.isArray(data.receipts)||data.receipts.length>500)throw Error('不是此工具的有效備份。');
+ const p=data.profile;
+ if(!exact(p,PROFILE_KEYS)||typeof p.rememberSensitive!=='boolean'||!PROFILE_KEYS.slice(0,-1).every(k=>str(p[k],k==='address'?160:120)))throw Error('受領人資料格式不正確。');
+ const ids=new Set();
+ for(const r of data.receipts){
+  if(!exact(r,RECEIPT_KEYS)||!str(r.id,100)||!r.id||ids.has(r.id)||!dateOK(r.date)||!Object.hasOwn(CATS,r.category)||!['resident','nonresident'].includes(r.residency)||!['auto','manual'].includes(r.taxMode)||!['auto','manual','exempt'].includes(r.nhiMode)||typeof r.issued!=='boolean'||!Array.isArray(r.items)||r.items.length>30)throw Error('領據格式不正確。');
+  if(![r.no,r.payer,r.reason].every(v=>str(v,120))||!str(r.payerTaxId,8)||!/^\d{0,8}$/.test(r.payerTaxId)||!str(r.note,300)||!digits(r.taxManual)||!digits(r.nhiManual))throw Error('領據欄位格式不正確。');
+  ids.add(r.id);const itemIds=new Set();
+  for(const i of r.items){if(!exact(i,['id','desc','kind','amount'])||!str(i.id,100)||!i.id||itemIds.has(i.id)||!str(i.desc,120)||!Object.hasOwn(KIND,i.kind)||!digits(i.amount))throw Error('金額欄位格式不正確。');itemIds.add(i.id);}
+ }
+ const raw=JSON.stringify(data);if(new Blob([raw]).size>LIMIT)throw Error('備份超過 2 MB 上限。');return raw;
+}
+const blankProfile=()=>({name:'',idNo:'',address:'',phone:'',email:'',bankName:'',bankBranch:'',account:'',accountName:'',rememberSensitive:false});
+const blank=()=>({format:FORMAT,version:1,revision:uid(),profile:blankProfile(),receipts:[]});
+const item=(kind='income')=>({id:uid(),desc:'',kind,amount:''});
+function newReceipt(last){return {id:uid(),no:'',date:today(),payer:'',payerTaxId:'',reason:'',category:last?.category||'9A',residency:last?.residency||'resident',items:[item()],taxMode:'auto',taxManual:'',nhiMode:'auto',nhiManual:'',note:'',issued:false};}
+function stored(d){const copy=structuredClone(d);if(!copy.profile.rememberSensitive){copy.profile.idNo='';copy.profile.account='';}return copy;}
+
+let data=blank(),expected=null,active='',blocked=false,unsaved=false,errorText='',sigURL='';
+function notice(text,id='message'){$(id).textContent=text;$(id).hidden=!text;}
+function load(){
+ try{const raw=localStorage.getItem(KEY);if(raw){const parsed=JSON.parse(raw);validate(parsed);data=parsed;}else data=blank();expected=raw;blocked=false;unsaved=false;errorText='';}
+ catch{blocked=true;errorText='無法讀取本機紀錄，原資料未被覆蓋。可先保留原始資料檔，或改用一般瀏覽視窗。';}
+}
+function save(){
+ try{const raw=validate(stored(data));if(localStorage.getItem(KEY)!==expected){blocked=true;errorText='另一個分頁已更新紀錄，本次修改未儲存。請先匯出這個畫面的備份，再重新載入。';return false;}localStorage.setItem(KEY,raw);expected=raw;unsaved=false;errorText='';return true;}
+ catch{unsaved=true;errorText='目前修改只留在畫面，未能寫入瀏覽器。離開前請立即匯出備份。';return false;}
+}
+function storageMessage(){
+ $('new-receipt').disabled=blocked;$('import').disabled=blocked;$('profile-fields').disabled=blocked;
+ $('storage-note').hidden=!errorText;
+ $('storage-note').innerHTML=errorText?`<p>${esc(errorText)}</p><div class="actions" style="margin-top:8px"><button data-action="reload">重新載入本機紀錄</button>${blocked&&!expected?'<button data-action="raw">保留原始資料檔</button>':''}</div>`:'';
+ $('save-status').textContent=errorText?'請留意儲存提示':location.protocol==='file:'?'本機檔案模式，請定期匯出備份':'領據紀錄已保存在這個瀏覽器';
+}
+function update(fn,render=true){
+ if(blocked){notice('請先處理上方本機紀錄提示。');return false;}
+ const prev=data;data=structuredClone(data);
+ try{fn(data);data.revision=uid();validate(data);}catch(e){data=prev;notice(e.message);return false;}
+ save();storageMessage();renderList();renderProfileState();
+ if(render)renderEditor();else renderChecks();return true;
+}
+function current(){return data.receipts.find(r=>r.id===active);}
+function editReceipt(fn,render=true){return update(d=>{const r=d.receipts.find(x=>x.id===active);if(r)fn(r);},render);}
+function renderList(){
+ const list=[...data.receipts].sort((a,b)=>b.date.localeCompare(a.date)||a.payer.localeCompare(b.payer));
+ $('list').innerHTML='<h2>我的領據</h2>'+(list.length?list.map(r=>{const c=calc(r),bad=issues(r,data.profile).err.length;return `<button data-action="select" data-id="${r.id}" aria-pressed="${active===r.id}"><span><b>${r.date.replaceAll('-','/')}</b><small>${r.issued?'已開立':bad?'整理中':'可列印'}</small></span><strong>${esc(r.payer||'未填支付單位')}</strong><small>實領 ${money(c.net)}</small></button>`;}).join(''):'<p class="help">還沒有領據。按「新增領據」開始。</p>');
+}
+function renderProfileState(){
+ const p=data.profile,id=p.idNo.trim()?idCheck(p.idNo):'';
+ $('profile-state').textContent=p.name.trim()?`${p.name}${p.idNo?' · 已填證號':' · 未填證號'}`:'尚未填寫';
+ const idEl=document.querySelector('[data-profile=idNo]');idEl.setAttribute('aria-invalid',id==='bad');
+ $('id-note').className='field-note '+(id==='bad'?'bad':id==='ok'?'ok':'');
+ $('id-note').textContent=id==='bad'?'檢查碼不符，請再核對。':id==='ok'?'格式與檢查碼正確。':id==='other'?'非身分證或居留證格式。':(!p.rememberSensitive&&!p.idNo?'重新整理後需再填（未勾選記住）。':'');
+ $('account-note').textContent=p.accountName.trim()&&p.name.trim()&&p.accountName.trim()!==p.name.trim()?'戶名與受領人不同，多數單位需另附委託書。':'';
+}
+function fillProfile(){document.querySelectorAll('[data-profile]').forEach(el=>{el.value=data.profile[el.dataset.profile];});$('remember').checked=data.profile.rememberSensitive;renderProfileState();}
+function renderEditor(){
+ const r=current();
+ if(!r){$('editor').innerHTML='<section class="panel empty"><p class="eyebrow">從一張領據開始</p><h2>選一張，或新增領據。</h2><p>受領人資料填一次就好，<br>每張領據只要填支付單位、事由與金額。</p></section>';return;}
+ const disabled=blocked||r.issued,cat=CATS[r.category];
+ $('editor').innerHTML=`<section class="panel editor" aria-labelledby="editor-title"><div class="head"><div><p class="eyebrow">領據</p><h2 id="editor-title">${esc(r.payer||'新的領據')}</h2></div><div class="actions"><button class="quiet small" data-action="duplicate" ${blocked?'disabled':''}>複製成新領據</button><button class="quiet danger small" data-action="delete" ${blocked?'disabled':''}>刪除</button></div></div>
+${r.issued?'<p class="note">已標記開立。修改前請先按「恢復編輯」。</p>':''}
+<fieldset ${disabled?'disabled':''}>
+<div class="head minor"><h3><span class="step">1</span> 支付單位與事由</h3></div>
+<div class="grid">
+<label><span>支付單位名稱 <b>*</b></span><input data-field="payer" value="${esc(r.payer)}" maxlength="120" placeholder="例：財團法人○○基金會"></label>
+<label>支付單位統一編號<input data-field="payerTaxId" value="${esc(r.payerTaxId)}" inputmode="numeric" maxlength="8" placeholder="選填，8 碼"></label>
+<label class="wide"><span>受領事由 <b>*</b></span><input data-field="reason" value="${esc(r.reason)}" maxlength="120" placeholder="例：11 月 20 日年會活動攝影"></label>
+<label><span>開立日期 <b>*</b></span><input data-field="date" type="date" value="${r.date}" min="1912-01-01" max="2199-12-31"></label>
+<label>領據編號<input data-field="no" value="${esc(r.no)}" maxlength="120" placeholder="選填，自用流水號"></label>
+</div>
+<div class="head minor"><h3><span class="step">2</span> 金額明細</h3><span class="local">${r.items.length} 筆</span></div>
+<p class="help">報酬列入所得；交通費、代墊款等實報實銷請選「實支費用」，不計入扣繳與補充保費。</p>
+<div class="items">${r.items.map((i,n)=>`<div class="item"><label>項目說明<input data-item="${i.id}" data-key="desc" value="${esc(i.desc)}" maxlength="120" placeholder="${n?'例：高鐵來回':'例：活動攝影費'}"></label><label>性質<select data-item="${i.id}" data-key="kind">${Object.entries(KIND).map(([k,v])=>`<option value="${k}" ${i.kind===k?'selected':''}>${v}</option>`).join('')}</select></label><label>金額（元）<input data-item="${i.id}" data-key="amount" value="${esc(i.amount)}" inputmode="numeric" maxlength="9" placeholder="整數"></label><button class="icon quiet danger" data-action="delete-item" data-id="${i.id}" aria-label="移除第 ${n+1} 筆金額" ${r.items.length<2?'disabled':''}>✕</button></div>`).join('')}</div>
+<div class="actions" style="margin-top:10px"><button class="small" data-action="add-item" data-kind="income" ${r.items.length>=30?'disabled':''}>＋ 報酬</button><button class="small" data-action="add-item" data-kind="expense" ${r.items.length>=30?'disabled':''}>＋ 實支費用</button></div>
+<div class="head minor"><h3><span class="step">3</span> 所得類別與代扣</h3></div>
+<div class="grid">
+<label>所得類別<select data-field="category">${Object.entries(CATS).map(([k,v])=>`<option value="${k}" ${r.category===k?'selected':''}>${v.code?v.code+' ':''}${v.name}</option>`).join('')}</select></label>
+<div><span class="local">身分</span><div class="radios" role="radiogroup" aria-label="所得人身分"><label><input type="radio" name="residency" data-field="residency" value="resident" ${r.residency==='resident'?'checked':''}>境內居住者</label><label><input type="radio" name="residency" data-field="residency" value="nonresident" ${r.residency==='nonresident'?'checked':''}>非居住者</label></div></div>
+</div>
+<p class="cat-hint">${esc(cat.hint)} 類別以付款單位認定為準。</p>
+<div class="grid3" style="margin-top:14px">
+<label>所得稅扣繳<select data-field="taxMode"><option value="auto" ${r.taxMode==='auto'?'selected':''}>自動試算</option><option value="manual" ${r.taxMode==='manual'?'selected':''}>依付款單位告知</option></select></label>
+<label>二代健保補充保費<select data-field="nhiMode"><option value="auto" ${r.nhiMode==='auto'?'selected':''}>自動試算</option><option value="exempt" ${r.nhiMode==='exempt'?'selected':''}>免扣取（附證明）</option><option value="manual" ${r.nhiMode==='manual'?'selected':''}>依付款單位告知</option></select></label>
+<div class="grid" style="gap:10px">${r.taxMode==='manual'?`<label>扣繳稅額<input data-field="taxManual" value="${esc(r.taxManual)}" inputmode="numeric" maxlength="9"></label>`:''}${r.nhiMode==='manual'?`<label>補充保費<input data-field="nhiManual" value="${esc(r.nhiManual)}" inputmode="numeric" maxlength="9"></label>`:''}</div>
+</div>
+<div class="summary" id="summary"></div>
+<label style="margin-top:18px">備註（會印在領據上）<textarea data-field="note" maxlength="300" placeholder="選填，例：已含交通費、分期第一期">${esc(r.note)}</textarea></label>
+</fieldset>
+<div class="head minor"><h3><span class="step">4</span> 簽名或印章</h3></div>
+<div class="sig"><div class="sig-preview" id="sig-preview">${sigURL?`<img src="${esc(sigURL)}" alt="簽名或印章預覽">`:'列印後親簽'}</div><div><div class="actions"><button class="small" data-action="sig">選擇簽名／印章影像</button>${sigURL?'<button class="small quiet danger" data-action="sig-clear">移除</button>':''}</div><p class="help">影像只在目前頁面使用，不保存。部分單位只收親簽或蓋章正本，使用影像前請先確認。</p></div></div>
+<input id="sig-file" type="file" accept="image/png,image/jpeg" hidden>
+<div class="printarea"><div class="head"><h3>開立前檢查</h3></div><ul class="compliance" id="compliance"></ul><div id="checks"></div>
+<div class="actions"><button class="primary" data-action="print">列印領據</button><button data-action="issued" ${blocked?'disabled':''}>${r.issued?'恢復編輯':'標記已開立'}</button></div><p class="help">在列印視窗選「另存為 PDF」即可輸出電子檔。列印不等於開立，交給付款單位後再標記。</p></div>
+</section>`;
+ renderChecks();
+}
+function renderChecks(){
+ const r=current();if(!r||!$('summary'))return;
+ const c=calc(r),{err,warn}=issues(r,data.profile);
+ $('summary').innerHTML=`<dl><div><dt>應領合計${c.expense&&c.income?`（報酬 ${fmt(c.income)}＋實支 ${fmt(c.expense)}）`:''}</dt><dd>${money(c.gross)}</dd><span class="upper">新臺幣${upper(c.gross)}</span></div>
+<div><dt>代扣所得稅${c.taxRate?`（${c.taxRate}）`:''}</dt><dd>${c.tax?'−':''}${money(c.tax)}</dd><span class="sub">${esc(c.taxNote)}</span></div>
+<div><dt>代扣二代健保補充保費</dt><dd>${c.nhi?'−':''}${money(c.nhi)}</dd><span class="sub">${esc(c.nhiNote)}</span></div>
+<div class="net"><dt>實領金額</dt><dd>${money(c.net)}</dd><span class="upper">新臺幣${upper(c.net)}</span></div></dl>`;
+ $('compliance').innerHTML=compliance(r,data.profile,!!sigURL).map(([label,ok,sub])=>`<li class="${ok?'done':''}"><span>${label}${sub?` <small>${sub}</small>`:''}</span></li>`).join('');
+ $('checks').innerHTML=err.length||warn.length?`<ul class="issues">${err.map(v=>`<li class="err">${esc(v)}</li>`).join('')}${warn.map(v=>`<li class="warn">提醒：${esc(v)}</li>`).join('')}</ul>`:'<p class="help">欄位齊全。列印前請再核對金額與付款單位資料。</p>';
+ const title=$('editor-title');if(title)title.textContent=r.payer||'新的領據';
+}
+/* Isolated print document: app styles never enter the print tree. */
+const PRINT_CSS=`@page{size:A4 portrait;margin:0}*{box-sizing:border-box}html,body{margin:0;padding:0;color:#111;background:white;font:10.5pt/1.6 -apple-system,BlinkMacSystemFont,"PingFang TC","Microsoft JhengHei","Noto Sans CJK TC",sans-serif}h1,p{margin:0}
+.sheet{width:210mm;height:296mm;padding:18mm 18mm 16mm;display:flex;flex-direction:column}
+.sheet-head{display:flex;justify-content:space-between;align-items:baseline;border-bottom:.5mm solid #111;padding-bottom:3mm}.sheet-head h1{font-size:22pt;letter-spacing:.3em;font-weight:700}.sheet-head p{font-size:9pt;color:#444}
+.lead{margin:7mm 0 4mm;font-size:11pt;overflow-wrap:anywhere}.lead b{font-weight:650}
+.amount{display:flex;align-items:baseline;gap:4mm;flex-wrap:wrap;border:.3mm solid #111;padding:4mm 5mm}.amount span{font-size:10pt}.amount strong{font-size:16pt;letter-spacing:.06em;font-weight:700}.amount em{margin-left:auto;font-style:normal;font-size:11pt;font-variant-numeric:tabular-nums}
+.items{width:100%;border-collapse:collapse;margin-top:5mm;font-size:10pt}.items th,.items td{border-bottom:.2mm solid #999;padding:2mm 1.5mm;text-align:left;font-weight:400;overflow-wrap:anywhere}.items thead th{border-bottom:.3mm solid #111;font-size:9pt;color:#444}.items .num{text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}.items tfoot th{text-align:right;color:#333}.items tr.net th,.items tr.net td{border-top:.4mm solid #111;border-bottom:.4mm solid #111;font-weight:700;font-size:11pt}.items tr.net span{font-weight:600;margin-left:3mm;font-size:10pt}
+.items th:nth-child(2),.items td:nth-child(2){width:24mm}.items td.num{width:32mm}
+.meta{font-size:9pt;color:#333;margin-top:2.5mm;overflow-wrap:anywhere}
+.to{margin:7mm 0 5mm;font-size:11pt}.to b{font-weight:650}
+.payee{display:grid;grid-template-columns:1fr 52mm;gap:6mm;border-top:.3mm solid #111;padding-top:4mm}
+.payee dl{margin:0;display:grid;grid-template-columns:1fr 1fr;gap:2.5mm 5mm}.payee dl>div{min-width:0}.payee .wide{grid-column:1/-1}.payee dt{font-size:8pt;color:#555}.payee dd{margin:.5mm 0 0;min-height:6mm;border-bottom:.2mm solid #999;padding-bottom:1mm;overflow-wrap:anywhere}
+.blank{display:inline-block;min-height:4mm}
+.sign{border:.3mm solid #111;min-height:42mm;padding:2mm;display:flex;flex-direction:column;align-items:center}.sign span{align-self:flex-start;font-size:8pt;color:#555}.sign img{max-width:46mm;max-height:32mm;margin:auto;object-fit:contain}
+.date{margin-top:auto;text-align:center;font-size:12pt;letter-spacing:.12em;padding-top:6mm}`;
+function newPrint(){if($('receipt-print-frame'))throw Error('請先關閉上一個列印視窗，稍候再試。');const f=document.createElement('iframe');f.id='receipt-print-frame';f.title='領據列印';f.setAttribute('aria-hidden','true');f.style.cssText='position:fixed;left:-10000px;top:0;width:210mm;height:297mm;border:0';document.body.append(f);const doc=f.contentDocument;doc.open();doc.write('<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8"><title>領據</title></head><body></body></html>');doc.close();const s=doc.createElement('style');s.textContent=PRINT_CSS;doc.head.append(s);return f;}
+async function runPrint(frame){try{const doc=frame.contentDocument;await Promise.all([...doc.images].map(img=>img.decode()));await doc.fonts.ready;await new Promise(r=>setTimeout(r,80));let timer;const cleanup=()=>{clearTimeout(timer);frame.remove();};frame.contentWindow.addEventListener('afterprint',()=>setTimeout(cleanup,800),{once:true});timer=setTimeout(cleanup,600000);frame.contentWindow.focus();frame.contentWindow.print();}catch(e){frame.remove();throw e;}}
+async function printReceipt(r){
+ const {err}=issues(r,data.profile);if(err.length)throw Error('請先補齊必填欄位：\n'+err.join('\n'));
+ const f=newPrint(),doc=f.contentDocument;
+ try{doc.body.innerHTML=receiptHTML(r,data.profile,sigURL);doc.title=`領據 ${r.date} ${r.payer}`;await runPrint(f);}catch(e){f.remove();throw e;}
+}
+function download(text,name){const url=URL.createObjectURL(new Blob([text],{type:'application/json;charset=utf-8'}));const a=document.createElement('a');a.href=url;a.download=name;document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);}
+$('export').onclick=()=>{try{const raw=validate(data);if((data.profile.idNo||data.profile.account)&&!confirm('備份檔會包含身分證字號與帳號，請存放在安全的位置。\n繼續匯出？'))return;download(raw,`個人領據-備份-${today()}.json`);}catch(e){notice(e.message);}};
+$('import').onclick=()=>$('import-file').click();
+$('import-file').onchange=async e=>{const f=e.target.files[0];e.target.value='';if(!f)return;try{if(f.size>LIMIT)throw Error('備份超過 2 MB。');const next=JSON.parse(await f.text());validate(next);const ids=new Set(data.receipts.map(r=>r.id)),add=next.receipts.filter(r=>!ids.has(r.id)),useProfile=!data.profile.name.trim()&&next.profile.name.trim();if(!confirm(`加入 ${add.length} 張新領據？\n${next.receipts.length-add.length} 張已存在，會略過。${useProfile?'\n也會帶入備份中的受領人資料。':''}`))return;if(update(d=>{d.receipts.push(...structuredClone(add));if(useProfile)d.profile=structuredClone(next.profile);})){fillProfile();notice(`已加入 ${add.length} 張領據。`);}}catch(err){notice(err.message||'無法讀取備份檔。');}};
+$('new-receipt').onclick=()=>{const last=[...data.receipts].sort((a,b)=>b.date.localeCompare(a.date))[0],r=newReceipt(last);if(update(d=>d.receipts.push(r),false)){active=r.id;notice('');renderList();renderEditor();$('editor').querySelector('[data-field=payer]')?.focus();}};
+$('clear').onclick=()=>{if(!confirm('只清除此工具的本機紀錄？請先匯出備份。\n不會清除 Dong Tools 其他工具的資料。'))return;try{localStorage.removeItem(KEY);active='';sigURL='';load();fillProfile();storageMessage();renderList();renderEditor();}catch{notice('瀏覽器不允許清除，原資料未變更。');}};
+$('remember').onchange=e=>{update(d=>{d.profile.rememberSensitive=e.target.checked;},false);};
+document.addEventListener('input',e=>{
+ const el=e.target;if(el.disabled)return;
+ if(el.dataset.profile){update(d=>{d.profile[el.dataset.profile]=el.value;},false);return;}
+ const r=current();if(!r||r.issued)return;
+ const digits=(el.dataset.key==='amount'||['taxManual','nhiManual','payerTaxId'].includes(el.dataset.field));
+ if(digits&&!/^\d*$/.test(el.value)){const clean=el.value.replace(/\D/g,'');el.value=clean;}
+ if(el.dataset.item){editReceipt(x=>{const i=x.items.find(v=>v.id===el.dataset.item);if(i)i[el.dataset.key]=el.value;},false);return;}
+ const field=el.dataset.field;if(!field||el.type==='radio'||el.tagName==='SELECT')return;
+ if(field==='date'&&!dateOK(el.value))return;
+ editReceipt(x=>{x[field]=el.value;},false);
+});
+document.addEventListener('change',e=>{
+ const el=e.target;if(el.disabled)return;const r=current();if(!r||r.issued)return;
+ if(el.dataset.item&&el.tagName==='SELECT'){editReceipt(x=>{const i=x.items.find(v=>v.id===el.dataset.item);if(i)i.kind=el.value;});return;}
+ if(el.dataset.field&&(el.tagName==='SELECT'||el.type==='radio')){const field=el.dataset.field;editReceipt(x=>{x[field]=el.value;if(field==='taxMode'&&el.value==='manual'&&!x.taxManual)x.taxManual=String(calc(x).tax);if(field==='nhiMode'&&el.value==='manual'&&!x.nhiManual)x.nhiManual='0';});}
+});
+document.addEventListener('click',async e=>{const b=e.target.closest('[data-action]');if(!b||b.disabled)return;const a=b.dataset.action;try{
+ if(a==='select'){active=b.dataset.id;renderList();renderEditor();return;}
+ if(a==='reload'){if(unsaved&&!confirm('畫面中有未儲存修改。請先匯出備份；仍要重新載入？'))return;load();fillProfile();storageMessage();renderList();renderEditor();return;}
+ if(a==='raw'){const raw=localStorage.getItem(KEY);if(raw)download(raw,`個人領據-原始資料-${today()}.json`);else notice('沒有可匯出的原始紀錄。');return;}
+ const r=current();if(!r)return;
+ if(a==='print'){await printReceipt(r);return;}
+ if(a==='sig'){$('sig-file').click();return;}
+ if(a==='sig-clear'){sigURL='';renderEditor();return;}
+ if(a==='delete'){if(confirm(`刪除「${r.payer||'未填支付單位'}」這張領據？`)&&update(d=>{d.receipts=d.receipts.filter(x=>x.id!==active);},false)){active='';renderList();renderEditor();}return;}
+ if(a==='duplicate'){const copy={...structuredClone(r),id:uid(),date:today(),no:'',issued:false};copy.items=copy.items.map(i=>({...i,id:uid()}));if(update(d=>d.receipts.push(copy),false)){active=copy.id;renderList();renderEditor();notice('已複製成新領據，日期改為今天。');}return;}
+ if(a==='issued'){if(r.issued||confirm('確認這張領據已簽章並交給付款單位？\n標記後欄位會鎖定。'))editReceipt(x=>{x.issued=!x.issued;});return;}
+ if(r.issued)return;
+ if(a==='add-item')editReceipt(x=>x.items.push(item(b.dataset.kind)));
+ if(a==='delete-item'&&r.items.length>1)editReceipt(x=>{x.items=x.items.filter(i=>i.id!==b.dataset.id);});
+}catch(err){notice(err.message);}});
+document.addEventListener('change',e=>{if(e.target.id!=='sig-file')return;const f=e.target.files[0];e.target.value='';if(!f)return;if(!/^image\/(png|jpeg)$/.test(f.type)||f.size>2*1024*1024){notice('請選擇 2 MB 以內的 PNG 或 JPG 影像。');return;}const reader=new FileReader();reader.onload=()=>{sigURL=String(reader.result);notice('');renderEditor();};reader.onerror=()=>notice('無法讀取影像。');reader.readAsDataURL(f);});
+window.addEventListener('storage',e=>{if((e.key===KEY||e.key===null)&&e.newValue!==expected){blocked=true;errorText='其他分頁已更新或清除紀錄。請先匯出畫面備份，再重新載入，避免互相覆蓋。';storageMessage();renderEditor();}});
+window.addEventListener('beforeunload',e=>{if(unsaved){e.preventDefault();e.returnValue='';}});
+load();
+/* 未記住時，證號與帳號不從儲存空間帶入（stored() 已移除）。 */
+fillProfile();storageMessage();
+active=[...data.receipts].sort((a,b)=>b.date.localeCompare(a.date))[0]?.id||'';
+renderList();renderEditor();
+// One page-load count, shared with the Dong Tools total. Failure never blocks the tool.
+fetch('https://abacus.jasoncameron.dev/hit/donglinphoto-receipt/visits',{credentials:'omit',referrerPolicy:'no-referrer'})
+ .then(response=>{if(!response.ok)throw Error('Counter unavailable');return response.json();})
+ .then(({value})=>{if(!Number.isSafeInteger(value)||value<0)return;$('visitor-counter').textContent=`🧾 已有 ${value.toLocaleString('zh-TW')} 次，不必再手寫大寫數字。`;$('visitor-counter').hidden=false;})
+ .catch(()=>{});
+</script>
+</body>
+</html>

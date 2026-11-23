@@ -84,6 +84,22 @@ export const tools: Tool[] = [
     counterNamespace: "donglinphoto-payment",
   },
   {
+    id: "receipt",
+    identity: {
+      logo: "/identity/receipt/logo.svg",
+      thumbnail: "/identity/receipt/thumbnail.png",
+      color: "#6B7340",
+      background: "#EFF0E4",
+      purpose: "製作個人領據、試算扣繳與二代健保",
+    },
+    name: "Receipt",
+    label: "個人領據製作",
+    description: "金額自動轉中文大寫，試算扣繳與補充保費，列印 A4 領據後簽章。",
+    href: "https://tools.donglinphoto.com/receipt/",
+    category: "business",
+    counterNamespace: "donglinphoto-receipt",
+  },
+  {
     id: "travel-expense",
     identity: {
       logo: "/identity/travel-expense/logo.svg",
