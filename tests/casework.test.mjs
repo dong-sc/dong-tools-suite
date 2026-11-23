@@ -95,3 +95,121 @@ test("text from the catalog is escaped", async () => {
   assert.doesNotMatch(bar, /<img/);
   assert.match(bar, /&lt;img/);
 });
+
+// Minimal DOM stand-in: enough to see where the runtime puts the bar and card.
+function fakeDom({ tool, mount, brand = true }) {
+  const events = [];
+  const make = (tag) => {
+    const el = {
+      tag,
+      children: [],
+      className: "",
+      attrs: {},
+      style: { setProperty() {} },
+      innerHTML: "",
+      parent: null,
+      setAttribute(k, v) {
+        this.attrs[k] = v;
+      },
+      append(child) {
+        child.parent = this;
+        this.children.push(child);
+      },
+      prepend(child) {
+        child.parent = this;
+        this.children.unshift(child);
+      },
+      after(child) {
+        child.parent = this.parent;
+        const list = this.parent.children;
+        list.splice(list.indexOf(this) + 1, 0, child);
+      },
+      remove() {
+        if (!this.parent) return;
+        const list = this.parent.children;
+        list.splice(list.indexOf(this), 1);
+        this.parent = null;
+      },
+      querySelector() {
+        return null;
+      },
+      addEventListener(type, fn) {
+        this.listeners = { ...this.listeners, [type]: fn };
+      },
+    };
+    return el;
+  };
+  const body = make("body");
+  const head = make("head");
+  const brandBar = make("nav");
+  brandBar.className = "dong-tools-bar";
+  if (brand) body.append(brandBar);
+  const all = () => {
+    const out = [];
+    const walk = (n) => n.children.forEach((c) => (out.push(c), walk(c)));
+    walk(body);
+    return out;
+  };
+  const document = {
+    readyState: "complete",
+    head,
+    body,
+    currentScript: { dataset: { tool, ...(mount ? { mount } : {}) } },
+    createElement: make,
+    getElementById: () => null,
+    querySelector: (sel) =>
+      sel === ".dong-tools-bar"
+        ? all().find((n) => n.className === "dong-tools-bar") || null
+        : null,
+    querySelectorAll: (sel) =>
+      all().filter((n) => sel === ".dtc-bar" && n.className === "dtc-bar"),
+  };
+  const window = {
+    dispatchEvent: (e) => events.push(e.type),
+  };
+  return { document, window, body, brandBar, events, all };
+}
+
+async function boot(dom) {
+  const data = buildCaseworkData(tools(), casework);
+  const context = vm.createContext({
+    window: dom.window,
+    document: dom.document,
+    Event: class {
+      constructor(type) {
+        this.type = type;
+      }
+    },
+  });
+  vm.runInContext(await renderSeriesScript(data), context);
+  return dom.window.DongCasework;
+}
+
+test("static pages get the bar right after the brand bar", async () => {
+  const dom = fakeDom({ tool: "receipt" });
+  await boot(dom);
+  assert.deepEqual(dom.events, ["dongcasework:ready"]);
+  assert.equal(dom.body.children[1].className, "dtc-bar");
+});
+
+test("manual pages mount the bar into their own element", async () => {
+  const dom = fakeDom({ tool: "quote", mount: "manual" });
+  const api = await boot(dom);
+  assert.deepEqual(dom.events, ["dongcasework:ready"]);
+  assert.equal(
+    dom.all().some((n) => n.className === "dtc-bar"),
+    false,
+  );
+  const slot = dom.document.createElement("div");
+  dom.body.append(slot);
+  api.mountBar("quote", slot);
+  api.mountBar("quote", slot);
+  assert.equal(slot.children.length, 1);
+  assert.equal(slot.children[0].className, "dtc-bar");
+  const card = api.showNext(slot);
+  assert.match(card.innerHTML, /下一步：.*02 確認範圍/);
+  const close = card.children[0];
+  assert.equal(close.className, "dtc-close");
+  close.listeners.click();
+  assert.equal(slot.children.includes(card), false);
+});
