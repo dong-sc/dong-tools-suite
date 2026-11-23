@@ -2,8 +2,14 @@
  * Dong Tools · Casework series bar.
  * Built from src/data/tools.ts into dist/casework/series.js. Do not edit the built file.
  *
- * Usage in any tool page:
- *   <script src="https://tools.donglinphoto.com/casework/series.js" data-tool="payment" defer></script>
+ * Static pages (the bar is placed right after .dong-tools-bar):
+ *   <script src="https://tools.donglinphoto.com/casework/series.js" data-tool="payment" async></script>
+ *
+ * Pages rendered by a framework (React etc.) mount it themselves, after their own render:
+ *   <script src="https://tools.donglinphoto.com/casework/series.js" data-tool="payment" data-mount="manual" async></script>
+ *   window.DongCasework?.mountBar("payment", element);   // or wait for the "dongcasework:ready" event
+ *
+ * Either way:
  *   <div data-casework-next></div>        <!-- optional slot for the next-step card -->
  *   window.DongCasework?.showNext();      // call after the document is printed or exported
  *
@@ -100,18 +106,20 @@
 
   let toolId = "";
 
-  function mountBar(id) {
+  /** Render the series bar. With a target element the bar goes inside it; otherwise after .dong-tools-bar. */
+  function mountBar(id, target) {
     const m = model(id);
     if (!m) return null;
     toolId = id;
     injectStyle();
-    document.querySelector(".dtc-bar")?.remove();
+    document.querySelectorAll(".dtc-bar").forEach((el) => el.remove());
     const nav = document.createElement("nav");
     nav.className = "dtc-bar";
     nav.setAttribute("aria-label", `${CASEWORK.name} 系列導覽`);
     nav.innerHTML = barHTML(m);
     const brand = document.querySelector(".dong-tools-bar");
-    if (brand) brand.after(nav);
+    if (target) target.append(nav);
+    else if (brand) brand.after(nav);
     else document.body.prepend(nav);
     return nav;
   }
@@ -143,7 +151,10 @@
 
   const script = document.currentScript;
   const id = script?.dataset.tool;
-  if (!id) return;
+  if (id) toolId = id;
+  // Lets pages that loaded this file with async know it is ready to use.
+  window.dispatchEvent(new Event("dongcasework:ready"));
+  if (!id || script.dataset.mount === "manual") return;
   if (document.readyState === "loading")
     document.addEventListener("DOMContentLoaded", () => mountBar(id), {
       once: true,
