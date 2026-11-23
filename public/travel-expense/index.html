@@ -48,6 +48,7 @@
 .dong-tools-brand:focus-visible,.dong-tools-hub-link:focus-visible{border-radius:3px;outline:2px solid #fff;outline-offset:4px}
 @media (max-width:760px){.dong-tools-bar-inner{min-height:42px;padding:0 18px;gap:12px}.dong-tools-brand img{width:26px;height:26px}}
 </style>
+<script src="/casework/series.js" data-tool="travel-expense" defer></script>
 </head>
 <body>
 <nav class="dong-tools-bar" aria-label="Dong Tools 品牌導覽"><div class="dong-tools-bar-inner"><a class="dong-tools-brand" aria-label="Travel Expense · Dong Tools（前往工具總站）" href="https://tools.donglinphoto.com/"><img src="/identity/travel-expense/logo-white.svg" alt="" width="32" height="32"><span>Travel Expense</span><span class="dong-tools-family">Dong Tools</span></a><a class="dong-tools-hub-link" href="https://tools.donglinphoto.com/">所有工具 <span aria-hidden="true">↗</span></a></div></nav>
@@ -60,7 +61,7 @@
 <section class="toolbar panel" aria-label="建立及備份"><div class="newdate"><label>整理哪一天？<input id="date" type="date" min="1900-01-01" max="2199-12-31"></label><button id="open-day" class="primary">＋ 建立／開啟</button></div><div class="actions"><button id="export">↓ 匯出備份</button><button id="import">↑ 匯入備份</button><input id="import-file" type="file" accept="application/json,.json" hidden></div></section>
 <div id="storage-note" class="note" role="alert" hidden></div><p id="message" class="note" role="status" hidden></p>
 <div class="monthbar"><div class="actions"><button id="prev" aria-label="上個月">←</button><input id="month" type="month" aria-label="顯示月份"><button id="next" aria-label="下個月">→</button></div><p id="month-summary"></p></div><p id="older" class="help" hidden></p>
-<div class="workspace" id="workspace"><aside class="panel days" id="days" aria-label="本月紀錄"></aside><main class="main"><div id="editor"></div>
+<div class="workspace" id="workspace"><aside class="panel days" id="days" aria-label="本月紀錄"></aside><main class="main"><div id="editor"></div><div data-casework-next></div>
 <section class="cutter panel" aria-labelledby="cutter-title"><p class="eyebrow">電子憑證另頁處理</p><h2 id="cutter-title">高鐵收據裁切</h2><p class="help">保留原始 PDF。這裡裁掉票面外的空白，不改寫內容；另印裁切頁，剪開後再貼到底紙。</p><div class="cutter-fields"><label>PDF 開啟密碼（如有）<input id="password" type="password" autocomplete="off" placeholder="通常為乘車日期 YYYYMMDD"></label><label>票面寬度<select id="width"><option value="120">120 mm</option><option value="135" selected>135 mm（預設）</option><option value="150">150 mm</option></select></label><button id="choose-pdf">＋ 選取 PDF</button></div><button id="use-date" class="small quiet">使用目前紀錄日期填入密碼</button><input id="pdf-files" type="file" accept="application/pdf,.pdf" multiple hidden><p class="help">每份 20 MB 內，每批最多 8 頁。檔案只在本機處理；離開或重新整理後需重新選取。</p><p id="pdf-message" class="note" role="status" hidden></p><div id="proofs" class="stack"></div><button id="print-proofs" class="primary" disabled>列印裁切頁</button><p class="help">四張往返票的單頁底紙搭配 135 mm 高鐵票面。票證只黏上緣；過長的計程車收據可折回，或依收件單位要求另頁。</p></section>
 </main></div>
 <section class="tool-guide-content" aria-label="交通費報帳與憑證黏貼單使用說明"><h2>交通費報帳與憑證黏貼單可以做什麼？</h2><p>把同一天的活動與交通費用整理成 A4 憑證黏貼單，另可將高鐵電子憑證 PDF 排成裁切頁。</p><h2>三步使用方法</h2><ol><li>建立日期，填寫活動與交通起迄、方式及金額。</li><li>補齊必要欄位，列印 A4 憑證黏貼單。</li><li>需要高鐵電子憑證時，選取 PDF、檢查完整票面，列印裁切後貼票送件。</li></ol><h2>常見問題</h2><details><summary>可以直接送交所有單位核銷嗎？</summary><p>工具協助整理憑證，是否符合核銷格式仍以收件單位規定為準。</p></details><details><summary>備份會包含高鐵 PDF 嗎？</summary><p>匯出備份只有文字紀錄，不包含 PDF、票面影像或開啟密碼；重新整理後須重新選取 PDF。</p></details><p><a href="https://tools.donglinphoto.com/">查看 Dong Tools 的照片排版、報價與文件工具</a></p></section>
@@ -196,7 +197,7 @@ async function printDay(d){if(issues(d).length)throw Error('請先補齊文字�
   }
   cursor+=1;
  }
- const pages=[...doc.querySelectorAll('.sheet')];pages.forEach((p,i)=>{p.querySelector('.page-number').textContent=`本日第 ${i+1} / ${pages.length} 頁`;});doc.title=`交通費報帳 ${d.date}`;await runPrint(f);
+ const pages=[...doc.querySelectorAll('.sheet')];pages.forEach((p,i)=>{p.querySelector('.page-number').textContent=`本日第 ${i+1} / ${pages.length} 頁`;});doc.title=`交通費報帳 ${d.date}`;await runPrint(f);window.DongCasework?.showNext();
  }catch(e){f.remove();throw e;}}
 /* PDF.js is fetched only on explicit file selection. No document bytes are sent to a server.
    Pinned Mozilla distribution; eval disabled as defense in depth.

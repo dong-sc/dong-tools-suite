@@ -116,6 +116,7 @@ h1{font-size:36px;line-height:1.35;letter-spacing:.03em}h1 span{font-weight:400;
 .dong-tools-brand:focus-visible,.dong-tools-hub-link:focus-visible{border-radius:3px;outline:2px solid #fff;outline-offset:4px}
 @media (max-width:760px){.dong-tools-bar-inner{min-height:42px;padding:0 18px;gap:12px}.dong-tools-brand img{width:26px;height:26px}}
 </style>
+<script src="/casework/series.js" data-tool="receipt" defer></script>
 </head>
 <body>
 <nav class="dong-tools-bar" aria-label="Dong Tools 品牌導覽"><div class="dong-tools-bar-inner"><a class="dong-tools-brand" aria-label="Receipt · Dong Tools（前往工具總站）" href="https://tools.donglinphoto.com/"><img src="/identity/receipt/logo-white.svg" alt="" width="32" height="32"><span>Receipt</span><span class="dong-tools-family">Dong Tools</span></a><a class="dong-tools-hub-link" href="https://tools.donglinphoto.com/">所有工具 <span aria-hidden="true">↗</span></a></div></nav>
@@ -145,7 +146,7 @@ h1{font-size:36px;line-height:1.35;letter-spacing:.03em}h1 span{font-weight:400;
 </div>
 <label class="check" style="margin-top:16px"><input type="checkbox" id="remember"><span>在這個瀏覽器記住身分證字號與帳號<small>未勾選時，這兩欄只留在目前頁面；共用電腦請保持不勾選。</small></span></label>
 </fieldset></div></details>
-<div id="editor"></div>
+<div id="editor"></div><div data-casework-next></div>
 </main></div>
 <section class="tool-guide-content" aria-label="個人領據製作使用說明"><h2>個人領據製作工具可以做什麼？</h2><p>接案、演講、兼職收到報酬時，付款單位常要求開立個人領據。這個工具把領據該有的欄位排好，金額自動換成中文大寫，並依所得類別試算代扣的所得稅與二代健保補充保費，最後印成 A4 給你簽名或蓋章。</p><h2>三步使用方法</h2><ol><li>填一次受領人資料：姓名、身分證字號、戶籍地址，需要轉帳時再填匯款帳戶。</li><li>新增領據，填支付單位、受領事由與金額，選擇所得類別；有交通費等實支費用可另列，不計入所得。</li><li>看完檢查清單，列印領據，在簽章欄親簽或蓋章後交給付款單位。</li></ol><h2>常見問題</h2><details><summary>領據要寫哪些內容才算合格？</summary><p>依《政府支出憑證處理要點》第五點，收據應由受領人簽名，並記明受領事由、實收數額、支付機關名稱、受領人姓名與身分證明文件字號（或統一編號），以及開立日期。這個工具會逐項檢查，金額另以中文大寫列出，降低塗改疑慮。民間公司通常也沿用相同格式；個別單位另有欄位要求時，以付款單位規定為準。</p></details><details><summary>扣繳與二代健保是怎麼算的？</summary><p>境內居住者：執行業務所得（9A）與稿費、講演鐘點費（9B）按 10% 扣繳，每次應扣稅額未超過 2,000 元免扣；兼職薪資（50）單次給付達 115 年度起扣標準 90,501 元才按 5% 扣繳。補充保費費率 2.11%，9A、9B 單次給付達 20,000 元起扣，兼職薪資達基本工資 29,500 元起扣。非居住者稅率不同，工具會另行標示。扣繳稅額元以下捨去，補充保費四捨五入。</p></details><details><summary>交通費要算進所得嗎？</summary><p>實報實銷、附有單據的交通費或代墊款通常不屬所得，可選「實支費用」另列，不列入扣繳與補充保費計算。是否接受實支，仍以付款單位規定為準。</p></details><details><summary>可以免扣補充保費嗎？</summary><p>例如在職業工會加保者領取 9A 執行業務收入、未具健保投保資格者等情形，可向付款單位提出免扣取聲明並附證明。選擇「免扣取」後，領據會照實列出 0 元。</p></details><details><summary>要不要貼印花？</summary><p>工具不計算印花稅。付款單位若要求貼用，請依其規定辦理。</p></details><details><summary>資料會上傳嗎？</summary><p>不會。所有內容只在瀏覽器中處理，身分證字號與帳號預設不寫入瀏覽器儲存空間。</p></details><p><a href="https://tools.donglinphoto.com/">查看 Dong Tools 的報價、請款與文件工具</a></p></section>
 <footer class="footer"><p>試算依 115 年度公告門檻，最終扣繳金額由付款單位計算。印出後請親自簽名或蓋章。</p><div><span id="save-status" role="status"></span><button id="clear" class="quiet danger">清除此工具的本機紀錄</button></div><p id="visitor-counter" class="visitor-counter" hidden></p></footer>
@@ -412,7 +413,7 @@ async function runPrint(frame){try{const doc=frame.contentDocument;await Promise
 async function printReceipt(r){
  const {err}=issues(r,data.profile);if(err.length)throw Error('請先補齊必填欄位：\n'+err.join('\n'));
  const f=newPrint(),doc=f.contentDocument;
- try{doc.body.innerHTML=receiptHTML(r,data.profile,sigURL);doc.title=`領據 ${r.date} ${r.payer}`;await runPrint(f);}catch(e){f.remove();throw e;}
+ try{doc.body.innerHTML=receiptHTML(r,data.profile,sigURL);doc.title=`領據 ${r.date} ${r.payer}`;await runPrint(f);window.DongCasework?.showNext();}catch(e){f.remove();throw e;}
 }
 function download(text,name){const url=URL.createObjectURL(new Blob([text],{type:'application/json;charset=utf-8'}));const a=document.createElement('a');a.href=url;a.download=name;document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);}
 $('export').onclick=()=>{try{const raw=validate(data);if((data.profile.idNo||data.profile.account)&&!confirm('備份檔會包含身分證字號與帳號，請存放在安全的位置。\n繼續匯出？'))return;download(raw,`個人領據-備份-${today()}.json`);}catch(e){notice(e.message);}};

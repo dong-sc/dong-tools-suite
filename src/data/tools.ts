@@ -1,3 +1,32 @@
+export type CaseworkStage = "pitch" | "collect" | "claim";
+
+export type CaseworkStep = {
+  /** 系列中的編號，從 1 起算 */
+  step: number;
+  stage: CaseworkStage;
+  /** 系列中的動詞名稱，例如「報價」 */
+  verb: string;
+  /** 什麼時候用 */
+  when: string;
+  /** 完成後產出的文件 */
+  output: string;
+  /** 完成後可以接的下一步工具 id；有兩個時代表擇一 */
+  next: string[];
+};
+
+/** Casework：一個案子從報價到報帳會用到的工具系列 */
+export const casework = {
+  name: "Casework",
+  tagline: "一個案子，從報價到報帳。",
+  description:
+    "接案時會用到的六份文件，照編號往下做就不會漏。04 和 05 看付款單位要哪一種，擇一即可；06 有交通費時再用。",
+  stages: [
+    { id: "pitch", label: "談案" },
+    { id: "collect", label: "收款" },
+    { id: "claim", label: "報帳" },
+  ] satisfies { id: CaseworkStage; label: string }[],
+};
+
 export type Tool = {
   id: string;
   name: string;
@@ -13,13 +42,14 @@ export type Tool = {
   };
   category: "create" | "business";
   featured?: boolean;
+  /** 屬於 Casework 系列時填寫；首頁區塊、各工具內的系列列都由這裡產生 */
+  series?: CaseworkStep;
   /** 該工具在 Abacus 上的計數 namespace，頁尾的總使用次數由這些加總而來 */
   counterNamespace?: string;
 };
 
-// Layout 是主打工具（featured），排第一並編號 00。
-// 其餘依一次接案的流程排列：報價 → 確認範圍 → 請款 → 領據 → 勞報單 → 交通費報帳，
-// 高鐵上傳估算放最後，首頁依序編號 01 起。
+// Layout 是主打工具（featured），編號 00。
+// 有 series 的工具組成 Casework 系列，依 step 編號；其餘工具列在「其他工具」。
 export const tools: Tool[] = [
   {
     id: "layout",
@@ -53,6 +83,14 @@ export const tools: Tool[] = [
     href: "https://quote.donglinphoto.com",
     category: "business",
     counterNamespace: "donglinphoto-quote",
+    series: {
+      step: 1,
+      stage: "pitch",
+      verb: "報價",
+      when: "客戶問價時",
+      output: "報價單",
+      next: ["scope"],
+    },
   },
   {
     id: "scope",
@@ -69,6 +107,14 @@ export const tools: Tool[] = [
     href: "https://scope.donglinphoto.com",
     category: "business",
     counterNamespace: "donglinphoto-scope",
+    series: {
+      step: 2,
+      stage: "pitch",
+      verb: "確認範圍",
+      when: "接案、開拍之前",
+      output: "範圍確認書",
+      next: ["payment"],
+    },
   },
   {
     id: "payment",
@@ -85,6 +131,14 @@ export const tools: Tool[] = [
     href: "https://payment.donglinphoto.com",
     category: "business",
     counterNamespace: "donglinphoto-payment",
+    series: {
+      step: 3,
+      stage: "collect",
+      verb: "請款",
+      when: "交件之後",
+      output: "請款單",
+      next: ["receipt", "fill"],
+    },
   },
   {
     id: "receipt",
@@ -101,6 +155,14 @@ export const tools: Tool[] = [
     href: "https://tools.donglinphoto.com/receipt/",
     category: "business",
     counterNamespace: "donglinphoto-receipt",
+    series: {
+      step: 4,
+      stage: "collect",
+      verb: "領據",
+      when: "付款單位要領據時",
+      output: "個人領據",
+      next: ["travel-expense"],
+    },
   },
   {
     id: "fill",
@@ -117,6 +179,14 @@ export const tools: Tool[] = [
     href: "https://simple-pdf.donglinphoto.com",
     category: "business",
     counterNamespace: "donglinphoto-pdf-fill",
+    series: {
+      step: 5,
+      stage: "collect",
+      verb: "勞報單",
+      when: "付款單位寄來勞報單時",
+      output: "簽好的勞報單",
+      next: ["travel-expense"],
+    },
   },
   {
     id: "travel-expense",
@@ -133,6 +203,14 @@ export const tools: Tool[] = [
     href: "https://tools.donglinphoto.com/travel-expense/",
     counterNamespace: "donglinphoto-travel-expense",
     category: "business",
+    series: {
+      step: 6,
+      stage: "claim",
+      verb: "交通報帳",
+      when: "有車資要報帳時",
+      output: "憑證黏貼單",
+      next: [],
+    },
   },
   {
     id: "thsr-upload",

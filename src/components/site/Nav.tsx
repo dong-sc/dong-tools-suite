@@ -32,6 +32,12 @@ export function Nav() {
               所有工具
             </a>
             <a
+              href="#casework"
+              className="hidden rounded-sm text-sm text-neutral-500 transition-colors hover:text-neutral-950 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-900 focus-visible:ring-offset-4 sm:block"
+            >
+              Casework
+            </a>
+            <a
               href="https://donglinphoto.com"
               target="_blank"
               rel="noreferrer"
