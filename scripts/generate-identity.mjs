@@ -71,6 +71,16 @@ export const family = [
     shape:
       '<path d="M29 9H12v46h34V40M24 41l3-12 20-20 8 8-20 20-11 4ZM42 14l8 8"/>',
   },
+  {
+    id: "receipt",
+    name: "Receipt",
+    purpose: "製作個人領據與扣繳試算",
+    color: "#6B7340",
+    bg: "#EFF0E4",
+    concept: "鋸齒下緣的領據與一枚印章，表達簽收確認。",
+    shape:
+      '<path d="M13 9h38v45l-6.3-4-6.4 4-6.3-4-6.3 4-6.4-4-6.3 4ZM21 19h22M21 28h9M41 31a6 6 0 1 1 0 12a6 6 0 1 1 0-12Z"/>',
+  },
 ];
 function svg(tool, color = tool.color) {
   return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" style="color:${color}" role="img" aria-label="Dong Tools ${tool.name}"><g stroke="currentColor" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">${tool.shape}</g></svg>\n`;
@@ -95,7 +105,7 @@ for (const [i, t] of family.entries()) {
   const markup = `<div class="thumb" style="--bg:${t.bg};--ink:${t.color}"><div><div class="meta"><span>DONG TOOLS</span><span>0${i + 1}</span></div><img class="mark" src="logo.svg"></div><div><h1 class="name">${t.name}</h1><p class="purpose">${t.purpose}</p></div><span class="diagonal"></span></div>`;
   fs.writeFileSync(
     path.join(out, t.id, "thumbnail.html"),
-    `<!doctype html><html lang="zh-Hant"><meta charset="utf-8"><style>${style}</style>${markup}</html>`,
+    `<!doctype html><html lang="zh-Hant"><meta name="robots" content="noindex, follow">\n<meta charset="utf-8"><style>${style}</style>${markup}</html>`,
   );
 }
 const cells = family
@@ -106,7 +116,7 @@ const cells = family
   .join("");
 fs.writeFileSync(
   path.join(out, "overview.html"),
-  `<!doctype html><html lang="zh-Hant"><meta charset="utf-8"><style>*{box-sizing:border-box}body{margin:0;background:#F8F8F4;color:#202724;font-family:Arial,'PingFang TC',sans-serif}main{width:1600px;padding:64px}header{display:flex;align-items:end;justify-content:space-between;margin-bottom:40px;border-bottom:1px solid #CDD3CB;padding-bottom:30px}h1{font-size:55px;letter-spacing:-2px;line-height:1;margin:0}header p{font-size:18px;color:#666E67;line-height:1.6;margin:0}.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:22px}article{background:white;border:1px solid #DFE3DC;border-radius:16px;padding:24px}.cell-head{display:flex;gap:16px;font-size:19px;font-weight:600}.cell-head span:first-child{color:#929C93;font-size:14px;line-height:22px}.symbols{display:flex;align-items:center;justify-content:space-between;margin:32px 0 26px}.symbols>img{width:90px;height:90px}.size-test{display:flex;flex-direction:column;gap:14px;align-items:center}.size-test span{font-size:10px;color:#6B736D}.reverse{background:#202724;border-radius:8px;padding:12px}.reverse img{width:40px;height:40px}article p{font-size:16px;margin:0 0 24px;color:#5E685F}.thumbnail{width:100%;border-radius:7px}.note{display:flex;flex-direction:column;justify-content:space-between;background:#EDF0E9}.note h2{font-size:30px;line-height:1.4;font-weight:500;margin:0}.note p{font-size:16px;line-height:1.9}.note strong{font-weight:500}footer{font-size:16px;color:#69726A;border-top:1px solid #CDD3CB;padding-top:24px;margin-top:36px}</style><main><header><h1>Dong Tools</h1><p>七個用途，七個符號。<br>同一網格、線寬與留白。</p></header><div class="grid">${cells}<article class="note"><h2>工作各有<br>自己的形狀。</h2><p>64 × 64 網格<br>6 單位線寬<br>圓角與端點統一<br>顏色輔助，形狀辨識</p><p>首頁縮圖採 16:10。<br>所有符號可單色、反白、透明使用。</p></article></div><footer>方向預覽 v1 · 2026.10.12　／　未套用至正式網站　／　官網、作品與預約連結維持原樣</footer></main></html>`,
+  `<!doctype html><html lang="zh-Hant"><meta name="robots" content="noindex, follow">\n<meta charset="utf-8"><style>*{box-sizing:border-box}body{margin:0;background:#F8F8F4;color:#202724;font-family:Arial,'PingFang TC',sans-serif}main{width:1600px;padding:64px}header{display:flex;align-items:end;justify-content:space-between;margin-bottom:40px;border-bottom:1px solid #CDD3CB;padding-bottom:30px}h1{font-size:55px;letter-spacing:-2px;line-height:1;margin:0}header p{font-size:18px;color:#666E67;line-height:1.6;margin:0}.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:22px}article{background:white;border:1px solid #DFE3DC;border-radius:16px;padding:24px}.cell-head{display:flex;gap:16px;font-size:19px;font-weight:600}.cell-head span:first-child{color:#929C93;font-size:14px;line-height:22px}.symbols{display:flex;align-items:center;justify-content:space-between;margin:32px 0 26px}.symbols>img{width:90px;height:90px}.size-test{display:flex;flex-direction:column;gap:14px;align-items:center}.size-test span{font-size:10px;color:#6B736D}.reverse{background:#202724;border-radius:8px;padding:12px}.reverse img{width:40px;height:40px}article p{font-size:16px;margin:0 0 24px;color:#5E685F}.thumbnail{width:100%;border-radius:7px}.note{display:flex;flex-direction:column;justify-content:space-between;background:#EDF0E9}.note h2{font-size:30px;line-height:1.4;font-weight:500;margin:0}.note p{font-size:16px;line-height:1.9}.note strong{font-weight:500}footer{font-size:16px;color:#69726A;border-top:1px solid #CDD3CB;padding-top:24px;margin-top:36px}</style><main><header><h1>Dong Tools</h1><p>七個用途，七個符號。<br>同一網格、線寬與留白。</p></header><div class="grid">${cells}<article class="note"><h2>工作各有<br>自己的形狀。</h2><p>64 × 64 網格<br>6 單位線寬<br>圓角與端點統一<br>顏色輔助，形狀辨識</p><p>首頁縮圖採 16:10。<br>所有符號可單色、反白、透明使用。</p></article></div><footer>方向預覽 v1 · 2026.10.12　／　未套用至正式網站　／　官網、作品與預約連結維持原樣</footer></main></html>`,
 );
 
 // Keep generated source previews compatible with the repository format check.

@@ -36,6 +36,9 @@ jobs:
       - name: Travel expense regression tests
         run: node --test tests/travel-expense.test.mjs
 
+      - name: Receipt regression tests
+        run: node --test tests/receipt.test.mjs
+
       - name: Build
         run: npm run build
 

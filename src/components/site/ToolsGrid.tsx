@@ -3,6 +3,12 @@ import { type CSSProperties } from "react";
 import { useReveal } from "@/hooks/use-reveal";
 import { tools, type Tool } from "@/data/tools";
 
+// 主打工具（featured）編號 00，其餘工具依清單順序從 01 起算。
+const toolNumbers = new Map<string, number>();
+let journeyStep = 0;
+for (const tool of tools)
+  toolNumbers.set(tool.id, tool.featured ? 0 : ++journeyStep);
+
 function ToolCard({ tool, index }: { tool: Tool; index: number }) {
   const { ref, visible } = useReveal<HTMLAnchorElement>();
   return (
@@ -23,7 +29,7 @@ function ToolCard({ tool, index }: { tool: Tool; index: number }) {
       <div className="tool-art" aria-hidden="true">
         <div className="tool-meta">
           <span>DONG TOOLS</span>
-          <span>{String(index + 1).padStart(2, "0")}</span>
+          <span>{String(toolNumbers.get(tool.id)).padStart(2, "0")}</span>
         </div>
         <img
           className="tool-logo"
@@ -67,7 +73,7 @@ export function ToolsGrid() {
             </h2>
           </div>
           <p className="max-w-sm text-sm leading-6 text-neutral-500">
-            選擇要完成的工作，直接開啟對應工具。
+            00 是照片排版；01 起依接案流程，從報價、請款到報帳，照編號往下走。
           </p>
         </div>
         {tools.length === 0 ? (

@@ -17,6 +17,9 @@ export type Tool = {
   counterNamespace?: string;
 };
 
+// Layout 是主打工具（featured），排第一並編號 00。
+// 其餘依一次接案的流程排列：報價 → 確認範圍 → 請款 → 領據 → 勞報單 → 交通費報帳，
+// 高鐵上傳估算放最後，首頁依序編號 01 起。
 export const tools: Tool[] = [
   {
     id: "layout",
@@ -84,6 +87,38 @@ export const tools: Tool[] = [
     counterNamespace: "donglinphoto-payment",
   },
   {
+    id: "receipt",
+    identity: {
+      logo: "/identity/receipt/logo.svg",
+      thumbnail: "/identity/receipt/thumbnail.png",
+      color: "#6B7340",
+      background: "#EFF0E4",
+      purpose: "製作個人領據、試算扣繳與二代健保",
+    },
+    name: "Receipt",
+    label: "個人領據製作",
+    description: "金額自動轉中文大寫，試算扣繳與補充保費，列印 A4 領據後簽章。",
+    href: "https://tools.donglinphoto.com/receipt/",
+    category: "business",
+    counterNamespace: "donglinphoto-receipt",
+  },
+  {
+    id: "fill",
+    identity: {
+      logo: "/identity/fill/logo.svg",
+      thumbnail: "/identity/fill/thumbnail.png",
+      color: "#626B91",
+      background: "#ECEEF5",
+      purpose: "填寫勞報單、PDF 與簽名",
+    },
+    name: "Fill",
+    label: "PDF 填寫",
+    description: "在收到的 PDF 上填入資料與簽名，輸出成新檔案。",
+    href: "https://simple-pdf.donglinphoto.com",
+    category: "business",
+    counterNamespace: "donglinphoto-pdf-fill",
+  },
+  {
     id: "travel-expense",
     identity: {
       logo: "/identity/travel-expense/logo.svg",
@@ -114,21 +149,5 @@ export const tools: Tool[] = [
     href: "https://tools.donglinphoto.com/thsr-upload/",
     category: "business",
     counterNamespace: "donglinphoto-thsr-upload",
-  },
-  {
-    id: "fill",
-    identity: {
-      logo: "/identity/fill/logo.svg",
-      thumbnail: "/identity/fill/thumbnail.png",
-      color: "#626B91",
-      background: "#ECEEF5",
-      purpose: "填寫勞報單、PDF 與簽名",
-    },
-    name: "Fill",
-    label: "PDF 填寫",
-    description: "在收到的 PDF 上填入資料與簽名，輸出成新檔案。",
-    href: "https://simple-pdf.donglinphoto.com",
-    category: "business",
-    counterNamespace: "donglinphoto-pdf-fill",
   },
 ];
