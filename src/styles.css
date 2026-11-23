@@ -261,3 +261,198 @@
     right: 16px;
   }
 }
+
+/* Featured tool: the 00 card with a short note beside it. */
+.featured-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+  gap: 20px 40px;
+  align-items: center;
+}
+@media (max-width: 760px) {
+  .featured-row {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* Casework: one job, from quote to claim. Stage rail + numbered steps. */
+.casework-rail,
+.casework-steps {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 12px;
+}
+.casework-rail {
+  margin: 48px 0 14px;
+}
+.casework-rail span {
+  border-top: 1.5px solid #202724;
+  padding-top: 8px;
+  color: #4a514c;
+  font-size: 12px;
+  letter-spacing: 0.12em;
+}
+.casework-steps {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.casework-steps li {
+  position: relative;
+  display: flex;
+  opacity: 0;
+  transform: translateY(12px);
+  transition:
+    transform 350ms ease,
+    opacity 350ms ease;
+}
+.casework-steps.is-visible li {
+  opacity: 1;
+  transform: translateY(0);
+}
+.casework-step {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-height: 300px;
+  padding: 18px 16px 16px;
+  border: 1px solid transparent;
+  border-radius: 14px;
+  background: var(--tool-paper);
+  color: var(--tool-ink);
+  text-decoration: none;
+  transition:
+    transform 250ms ease,
+    border-color 200ms ease;
+}
+.casework-step:hover {
+  transform: translateY(-3px);
+  border-color: var(--tool-ink);
+}
+.casework-step:focus-visible {
+  outline: 2px solid #202724;
+  outline-offset: 5px;
+}
+.casework-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 8px;
+}
+.casework-num {
+  font-size: 34px;
+  font-weight: 600;
+  letter-spacing: -0.05em;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+.casework-stage {
+  font-size: 11px;
+  letter-spacing: 0.12em;
+}
+.casework-logo {
+  width: 40px;
+  height: 40px;
+  margin: 22px 0 18px;
+}
+.casework-verb {
+  color: #202724;
+  font-size: 21px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.25;
+}
+.casework-name {
+  margin-top: 3px;
+  font-size: 12px;
+  font-weight: 500;
+}
+.casework-when {
+  margin-top: 12px;
+  color: #4a514c;
+  font-size: 13px;
+  line-height: 1.55;
+}
+.casework-alt {
+  width: fit-content;
+  margin-top: 10px;
+  padding: 2px 8px;
+  border: 1px solid currentColor;
+  border-radius: 999px;
+  font-size: 11px;
+}
+.casework-out {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  margin-top: auto;
+  padding-top: 14px;
+  border-top: 1px dashed color-mix(in srgb, var(--tool-ink) 40%, transparent);
+  color: #4a514c;
+  font-size: 12px;
+}
+.casework-out svg {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  color: var(--tool-ink);
+}
+/* On wide screens the stage rail already names each stage. */
+@media (min-width: 1121px) {
+  .casework-stage {
+    visibility: hidden;
+  }
+}
+@media (max-width: 1120px) {
+  .casework-rail {
+    display: none;
+  }
+  .casework-steps {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
+    margin-top: 40px;
+  }
+}
+@media (max-width: 760px) {
+  .casework-steps {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 14px;
+  }
+  .casework-step {
+    min-height: 0;
+    display: grid;
+    grid-template-columns: 48px minmax(0, 1fr);
+    column-gap: 14px;
+    padding: 16px;
+  }
+  .casework-step > * {
+    grid-column: 2;
+  }
+  .casework-head {
+    display: contents;
+  }
+  .casework-num {
+    grid-column: 1;
+    grid-row: 1 / span 4;
+    font-size: 28px;
+  }
+  .casework-stage {
+    grid-column: 2;
+    grid-row: 1;
+    margin-bottom: 6px;
+  }
+  .casework-logo {
+    display: none;
+  }
+  /* A thin line joins one step to the next. */
+  .casework-steps li:not(:last-child)::after {
+    content: "";
+    position: absolute;
+    left: 31px;
+    bottom: -14px;
+    width: 1.5px;
+    height: 14px;
+    background: #c8cfc7;
+  }
+}

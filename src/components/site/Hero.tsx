@@ -13,8 +13,7 @@ export function Hero() {
           照片排版與接案文件工具。
         </h1>
         <p className="mt-7 max-w-2xl text-pretty text-lg leading-8 text-neutral-600 sm:text-xl sm:leading-9">
-          從照片排版，到報價、服務確認、請款、報帳與 PDF
-          填寫。原本只是為了解決每天會遇到的事，現在整理在這裡，分享給剛好需要的人。
+          從照片排版，到一個案子從報價、請款到報帳的文件。原本只是為了解決每天會遇到的事，現在整理在這裡，分享給剛好需要的人。
         </p>
 
         <a
