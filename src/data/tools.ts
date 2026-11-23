@@ -17,9 +17,27 @@ export type Tool = {
   counterNamespace?: string;
 };
 
-// 依一次接案的流程排列：報價 → 確認範圍 → 交付照片 → 請款 → 領據 → 勞報單 → 交通費報帳，
-// 高鐵上傳估算放最後。首頁卡片依此順序編號。
+// Layout 是主打工具（featured），排第一並編號 00。
+// 其餘依一次接案的流程排列：報價 → 確認範圍 → 請款 → 領據 → 勞報單 → 交通費報帳，
+// 高鐵上傳估算放最後，首頁依序編號 01 起。
 export const tools: Tool[] = [
+  {
+    id: "layout",
+    identity: {
+      logo: "/identity/layout/logo.svg",
+      thumbnail: "/identity/layout/thumbnail.png",
+      color: "#345B80",
+      background: "#E9EFF5",
+      purpose: "照片自動排版、IG 無縫輪播",
+    },
+    name: "Layout",
+    label: "照片自動排版與 IG 無縫輪播",
+    description: "放入照片，自動建立版面，也能手動調整並輸出常用格式。",
+    href: "https://layout.donglinphoto.com",
+    category: "create",
+    counterNamespace: "donglinphoto-layout-tool",
+    featured: true,
+  },
   {
     id: "quote",
     identity: {
@@ -51,23 +69,6 @@ export const tools: Tool[] = [
     href: "https://scope.donglinphoto.com",
     category: "business",
     counterNamespace: "donglinphoto-scope",
-  },
-  {
-    id: "layout",
-    identity: {
-      logo: "/identity/layout/logo.svg",
-      thumbnail: "/identity/layout/thumbnail.png",
-      color: "#345B80",
-      background: "#E9EFF5",
-      purpose: "照片自動排版、IG 無縫輪播",
-    },
-    name: "Layout",
-    label: "照片自動排版與 IG 無縫輪播",
-    description: "放入照片，自動建立版面，也能手動調整並輸出常用格式。",
-    href: "https://layout.donglinphoto.com",
-    category: "create",
-    counterNamespace: "donglinphoto-layout-tool",
-    featured: true,
   },
   {
     id: "payment",
