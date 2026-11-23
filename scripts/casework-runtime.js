@@ -78,7 +78,7 @@
 <p class="dtc-w">${next.length > 1 ? "擇一即可。" : ""}${when}</p>`;
   }
 
-  const CSS = `.dtc-bar{border-bottom:1px solid #e4e4dc;background:#fafaf6;color:#3f4540;font:12px/1.5 -apple-system,BlinkMacSystemFont,"PingFang TC","Microsoft JhengHei",sans-serif}
+  const CSS = `.dtc-bar{flex:none;border-bottom:1px solid #e4e4dc;background:#fafaf6;color:#3f4540;font:12px/1.5 -apple-system,BlinkMacSystemFont,"PingFang TC","Microsoft JhengHei",sans-serif}
 .dtc-inner{display:flex;align-items:center;gap:8px 16px;flex-wrap:wrap;max-width:1440px;min-height:40px;margin:0 auto;padding:6px 28px}
 .dtc-bar a{color:inherit;text-decoration:none}.dtc-bar a:hover{color:#111;text-decoration:underline}
 .dtc-bar a:focus-visible,.dtc-next a:focus-visible{border-radius:3px;outline:2px solid #202724;outline-offset:3px}
@@ -91,6 +91,9 @@
 .dtc-links{display:flex;gap:6px 16px;flex-wrap:wrap;margin-left:auto}
 .dtc-sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
 .dtc-next{margin:18px 0;padding:16px 18px;border:1px solid #dfe0d6;border-left:4px solid var(--dtc-c,#202724);border-radius:0 10px 10px 0;background:#fff;color:#2b2d26;font:14px/1.6 -apple-system,BlinkMacSystemFont,"PingFang TC","Microsoft JhengHei",sans-serif}
+.dtc-next{position:relative;padding-right:48px}
+.dtc-close{position:absolute;top:8px;right:8px;width:32px;height:32px;padding:0;border:0;border-radius:6px;background:transparent;color:#6b6e60;font:18px/1 sans-serif;cursor:pointer}
+.dtc-close:hover{background:#f0f0ea;color:#111}.dtc-close:focus-visible{outline:2px solid #202724;outline-offset:2px}
 .dtc-next p{margin:0}.dtc-k{font-size:11px;letter-spacing:.08em;color:#6b6e60}.dtc-t{margin-top:2px!important;font-size:16px;font-weight:650}
 .dtc-t a,.dtc-w a{color:inherit;text-decoration:underline;text-underline-offset:3px}.dtc-w{margin-top:4px!important;font-size:12px;color:#6b6e60}
 @media(max-width:760px){.dtc-inner{padding:6px 18px}.dtc-links{margin-left:0;width:100%}}
@@ -141,6 +144,13 @@
     card.setAttribute("role", "status");
     card.style.setProperty("--dtc-c", m.current.color);
     card.innerHTML = nextHTML(m);
+    const close = document.createElement("button");
+    close.type = "button";
+    close.className = "dtc-close";
+    close.setAttribute("aria-label", "關閉下一步提示");
+    close.textContent = "×";
+    close.addEventListener("click", () => card.remove());
+    card.prepend(close);
     slot.append(card);
     return card;
   }

@@ -133,6 +133,9 @@ function fakeDom({ tool, mount, brand = true }) {
       querySelector() {
         return null;
       },
+      addEventListener(type, fn) {
+        this.listeners = { ...this.listeners, [type]: fn };
+      },
     };
     return el;
   };
@@ -205,4 +208,8 @@ test("manual pages mount the bar into their own element", async () => {
   assert.equal(slot.children[0].className, "dtc-bar");
   const card = api.showNext(slot);
   assert.match(card.innerHTML, /下一步：.*02 確認範圍/);
+  const close = card.children[0];
+  assert.equal(close.className, "dtc-close");
+  close.listeners.click();
+  assert.equal(slot.children.includes(card), false);
 });
